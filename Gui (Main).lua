@@ -1934,13 +1934,7 @@ local aa = {
             end
             local N = e(p.Tab):Init(v)
             function v.AddTab(O, P)
-                if string.find(P.Title,"+^") then
-                    local o52d = P.Title:gsub("+^", "      ●  ")
-                    return N:New(o52d, P.Icon, v.TabHolder)
-                else
-                    return N:New(P.Title, P.Icon, v.TabHolder)
-                end
-                P.Title = "awdawd"
+                return N:New(P.Title, P.Icon, v.TabHolder)
             end
             function v.SelectTab(O, P)
                 N:SelectTab(1)
