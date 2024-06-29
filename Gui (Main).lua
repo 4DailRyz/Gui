@@ -1940,6 +1940,7 @@ local aa = {
                 else
                     return N:New(P.Title, P.Icon, v.TabHolder)
                 end
+                P.Title = "awdawd"
             end
             function v.SelectTab(O, P)
                 N:SelectTab(1)
