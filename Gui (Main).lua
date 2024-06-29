@@ -1887,7 +1887,6 @@ local aa = {
                 if not C then
                     C = true
                     local N = u.MinimizeKeybind and u.MinimizeKeybind.Value or u.MinimizeKey.Name
-                    u:Notify {Title = "Interface", Content = "Press " .. N .. " to toggle the inteface.", Duration = 6}
                 end
             end
             function v.Destroy(M)
@@ -1935,7 +1934,12 @@ local aa = {
             end
             local N = e(p.Tab):Init(v)
             function v.AddTab(O, P)
-                return N:New(P.Title, P.Icon, v.TabHolder)
+                if string.find(P.Title,"+^") then
+                    local o52d = P.Title:gsub("+^", "      ●  ")
+                    return N:New(o52d, P.Icon, v.TabHolder)
+                else
+                    return N:New(P.Title, P.Icon, v.TabHolder)
+                end
             end
             function v.SelectTab(O, P)
                 N:SelectTab(1)
