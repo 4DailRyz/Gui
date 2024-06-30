@@ -921,8 +921,8 @@ local aa = {
             )
         end
         function o.New(p, q)
-            q.Title = q.Title or "Title"
-            q.Content = q.Content or "Content"
+            q.Title = q.Title or ""
+            q.Content = q.Content or ""
             q.SubContent = q.SubContent or ""
             q.Duration = q.Duration or nil
             q.Buttons = q.Buttons or {}
@@ -933,7 +933,7 @@ local aa = {
                 "TextLabel",
                 {
                     Position = UDim2.new(0, 14, 0, 17),
-                    Text = "IHERE",
+                    Text = q.Title,
                     RichText = true,
                     TextColor3 = Color3.fromRGB(255, 255, 255),
                     TextTransparency = 0,
@@ -1167,7 +1167,8 @@ local aa = {
             if r == "" or nil then
                 r = nil
             end
-            x.Frame =
+            c2awd = x.Frame
+            c2awd =
                 k(
                 "TextButton",
                 {
@@ -1251,33 +1252,33 @@ local aa = {
                     x.ContainerFrame.CanvasSize = UDim2.new(0, 0, 0, y.AbsoluteContentSize.Y + 2)
                 end
             )
-            x.Motor, x.SetTransparency = j.SpringMotor(1, x.Frame, "BackgroundTransparency")
+            x.Motor, x.SetTransparency = j.SpringMotor(1, c2awd, "BackgroundTransparency")
             j.AddSignal(
-                x.Frame.MouseEnter,
+                c2awd.MouseEnter,
                 function()
                     x.SetTransparency(x.Selected and 0.85 or 0.89)
                 end
             )
             j.AddSignal(
-                x.Frame.MouseLeave,
+                c2awd.MouseLeave,
                 function()
                     x.SetTransparency(x.Selected and 0.89 or 1)
                 end
             )
             j.AddSignal(
-                x.Frame.MouseButton1Down,
+                c2awd.MouseButton1Down,
                 function()
                     x.SetTransparency(0.92)
                 end
             )
             j.AddSignal(
-                x.Frame.MouseButton1Up,
+                c2awd.MouseButton1Up,
                 function()
                     x.SetTransparency(x.Selected and 0.85 or 0.89)
                 end
             )
             j.AddSignal(
-                x.Frame.MouseButton1Click,
+                c2awd.MouseButton1Click,
                 function()
                     o:SelectTab(w)
                 end
@@ -1293,19 +1294,28 @@ local aa = {
                 setmetatable(B, v)
                 return B
             end
+            print(c2awd)
             setmetatable(x, v)
             return x
+        end
+        local function getText(name, text)
+            if name.find(name, text) then
+                local ao87h = name:gsub(text, "")
+                return ao87h
+            else
+                return name
+            end
         end
         function o.SelectTab(p, q)
             local r = o.Window
             local iTx = o.Tabs[q].Name
-            if string.find(iTx,"end/") then local te87 = iTx:split("end/")[2] iTx = te87 end
-            if string.find(iTx," ") then local te87 = iTx:gsub(" ","") iTx = te87 end
             o.SelectedTab = q
             for s, t in next, o.Tabs do
                 t.SetTransparency(1)
                 t.Selected = false
             end
+            iTx = getText(iTx, " ")
+            iTx = getText(iTx, "●")
             o.Tabs[q].SetTransparency(0.89)
             o.Tabs[q].Selected = true
             r.TabDisplay.Text = iTx
@@ -2355,7 +2365,7 @@ local aa = {
                     W.Frame.Position = UDim2.fromOffset(x.Transparency and 260 or 240, 95)
                     I("Red", UDim2.fromOffset(x.Transparency and 360 or 340, 95))
                     local X = H()
-                    X.Frame.Position = UDim2.fromOffset(x.Transparency and 260 or 240, 135)
+                    c2awd.Position = UDim2.fromOffset(x.Transparency and 260 or 240, 135)
                     I("Green", UDim2.fromOffset(x.Transparency and 360 or 340, 135))
                     local Y = H()
                     Y.Frame.Position = UDim2.fromOffset(x.Transparency and 260 or 240, 175)
