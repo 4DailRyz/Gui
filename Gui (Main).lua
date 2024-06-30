@@ -921,8 +921,8 @@ local aa = {
             )
         end
         function o.New(p, q)
-            q.Title = q.Title or "Title"
-            q.Content = q.Content or "Content"
+            q.Title = q.Title or ""
+            q.Content = q.Content or ""
             q.SubContent = q.SubContent or ""
             q.Duration = q.Duration or nil
             q.Buttons = q.Buttons or {}
@@ -1158,11 +1158,9 @@ local aa = {
         end
         function o.New(p, q, r, s)
             local t, u = e(h), o.Window
-            local iTx = q
             local v = t.Elements
             o.TabCount = o.TabCount + 1
-            if string.find(iTx,"end/") then local te87 = iTx:gsub("end/","") iTx = te87 end
-            local w, x = o.TabCount, {Selected = false, Name = iTx, Type = "Tab"}
+            local w, x = o.TabCount, {Selected = false, Name = "ISUS", Type = "Tab"}
             if t:GetIcon(r) then
                 r = t:GetIcon(r)
             end
