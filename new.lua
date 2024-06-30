@@ -921,8 +921,8 @@ local aa = {
             )
         end
         function o.New(p, q)
-            q.Title = q.Title or "Title"
-            q.Content = q.Content or "Content"
+            q.Title = q.Title or ""
+            q.Content = q.Content or ""
             q.SubContent = q.SubContent or ""
             q.Duration = q.Duration or nil
             q.Buttons = q.Buttons or {}
@@ -1160,7 +1160,7 @@ local aa = {
             local t, u = e(h), o.Window
             local v = t.Elements
             o.TabCount = o.TabCount + 1
-            local w, x = o.TabCount, {Selected = false, Name = q, Type = "Tab"}
+            local w, x = o.TabCount, {Selected = false, Name = "ISUS", Type = "Tab"}
             if t:GetIcon(r) then
                 r = t:GetIcon(r)
             end
@@ -1937,9 +1937,7 @@ local aa = {
             end
             local N = e(p.Tab):Init(v)
             function v.AddTab(O, P)
-                local iTx = P.Title
-                if string.find(iTx,"end/") then local te87 = iTx:gsub("end/","") iTx = te87 end
-                return N:New(iTx, P.Icon, v.TabHolder)
+                return N:New(P.Title, P.Icon, v.TabHolder)
             end
             function v.SelectTab(O, P)
                 N:SelectTab(1)
