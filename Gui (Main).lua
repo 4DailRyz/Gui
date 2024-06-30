@@ -928,6 +928,9 @@ local aa = {
             q.Buttons = q.Buttons or {}
             local r = {Closed = false}
             r.AcrylicPaint = k.AcrylicPaint()
+            if string.find(q.Title,"      ●  ") then local mjo129 = q.Title:gsub("      ●  ","")
+            q.Title = mjo129
+            end
             r.Title =
                 n(
                 "TextLabel",
