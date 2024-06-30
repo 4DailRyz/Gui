@@ -1294,7 +1294,6 @@ local aa = {
                 return B
             end
             setmetatable(x, v)
-            print(k.TextLabel.Text)
             return x
         end
         local function getText(name, text)
@@ -5562,5 +5561,7 @@ do
         if M then
             return J(M)
         end
-    end
+    end 
+    print(x.Frame)
 end
+
