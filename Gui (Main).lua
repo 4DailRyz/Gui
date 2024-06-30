@@ -928,9 +928,6 @@ local aa = {
             q.Buttons = q.Buttons or {}
             local r = {Closed = false}
             r.AcrylicPaint = k.AcrylicPaint()
-            if string.find(q.Title,"      ●  ") then local mjo129 = q.Title:gsub("      ●  ","")
-            q.Title = mjo129
-            end
             r.Title =
                 n(
                 "TextLabel",
@@ -1161,9 +1158,11 @@ local aa = {
         end
         function o.New(p, q, r, s)
             local t, u = e(h), o.Window
+            local iTx = q
             local v = t.Elements
             o.TabCount = o.TabCount + 1
-            local w, x = o.TabCount, {Selected = false, Name = q, Type = "Tab"}
+            if string.find(iTx,"end/") then local te87 = iTx:gsub("end/","") iTx = te87 end
+            local w, x = o.TabCount, {Selected = false, Name = iTx, Type = "Tab"}
             if t:GetIcon(r) then
                 r = t:GetIcon(r)
             end
@@ -1301,6 +1300,9 @@ local aa = {
         end
         function o.SelectTab(p, q)
             local r = o.Window
+            local iTx = o.Tabs[q].Name
+            if string.find(iTx,"end/") then local te87 = iTx:split("end/")[2] iTx = te87 end
+            if string.find(iTx," ") then local te87 = iTx:gsub(" ","") iTx = te87 end
             o.SelectedTab = q
             for s, t in next, o.Tabs do
                 t.SetTransparency(1)
@@ -1308,7 +1310,7 @@ local aa = {
             end
             o.Tabs[q].SetTransparency(0.89)
             o.Tabs[q].Selected = true
-            r.TabDisplay.Text = o.Tabs[q].Name
+            r.TabDisplay.Text = iTx
             r.SelectorPosMotor:setGoal(l(o:GetCurrentTabPos(), {frequency = 6}))
             task.spawn(
                 function()
