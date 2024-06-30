@@ -1312,16 +1312,13 @@ local aa = {
                 t.SetTransparency(1)
                 t.Selected = false
             end
-            if getgenv()["Tabs"] then
-                for nimber = 1, #o.Tabs do
-                    if getgenv()["Tabs"][i] == o.Tabs[q] then
-                        iTx = "IHERE SATUNMA"
+            if getgenv().Tabs then
+                for s,t in pairs(getgenv().Tabs) do
+                    if s == q and iTx ~= t then
+                        iTx = t
                     end
                 end
             end
-            print(#o.Tabs)
-            iTx = getText(iTx, " ")
-            iTx = getText(iTx, "●")
             o.Tabs[q].SetTransparency(0.89)
             o.Tabs[q].Selected = true
             r.TabDisplay.Text = iTx
