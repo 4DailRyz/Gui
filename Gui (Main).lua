@@ -1299,7 +1299,7 @@ local aa = {
         function o.SelectTab(p, q)
             local r = o.Window
             local iTx = o.Tabs[q].Name
-            if string.find(iTx," " or "●") then local te87 = iTx:gsub(" ","") iTx = te87 end
+            if string.find(iTx," ") then local te87 = iTx:gsub(" ","") iTx = te87 end
             if string.find(iTx,"●") then local te87 = iTx:gsub("●","") iTx = te87 end
             o.SelectedTab = q
             for s, t in next, o.Tabs do
