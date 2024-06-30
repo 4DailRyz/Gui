@@ -1887,7 +1887,6 @@ local aa = {
                 if not C then
                     C = true
                     local N = u.MinimizeKeybind and u.MinimizeKeybind.Value or u.MinimizeKey.Name
-                    u:Notify {Title = "Interface", Content = "Press " .. N .. " to toggle the inteface.", Duration = 6}
                 end
             end
             function v.Destroy(M)
