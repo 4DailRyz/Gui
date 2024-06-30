@@ -1167,8 +1167,7 @@ local aa = {
             if r == "" or nil then
                 r = nil
             end
-            local c2awd = x.Frame
-            c2awd =
+            x.Frame =
                 k(
                 "TextButton",
                 {
@@ -1294,7 +1293,9 @@ local aa = {
                 setmetatable(B, v)
                 return B
             end
-            print(c2awd)
+            for wda2,fawfd in ipairs(x.Frame:GetDescendants()) do
+                print(wda2,fawfd)
+            end
             setmetatable(x, v)
             return x
         end
@@ -5565,3 +5566,4 @@ do
         end
     end
 end
+
