@@ -1183,7 +1183,7 @@ local aa = {
                         {
                             AnchorPoint = Vector2.new(0, 0.5),
                             Position = r and UDim2.new(0, 30, 0.5, 0) or UDim2.new(0, 12, 0.5, 0),
-                            Text = "AWDA",
+                            Text = q,
                             RichText = true,
                             TextColor3 = Color3.fromRGB(255, 255, 255),
                             TextTransparency = 0,
@@ -1298,6 +1298,10 @@ local aa = {
         end
         function o.SelectTab(p, q)
             local r = o.Window
+            local iTx = o.Tabs[q].Name
+            text:gsub("new/",""):gsub("end/","")
+            if string.find(iTx,"new/") then local te87 = iTx:split("end/")[2] iTx = te87 end
+            if string.find(iTx," ") then local te87 = iTx:gsub(" ","") iTx = te87 end
             o.SelectedTab = q
             for s, t in next, o.Tabs do
                 t.SetTransparency(1)
@@ -1305,7 +1309,7 @@ local aa = {
             end
             o.Tabs[q].SetTransparency(0.89)
             o.Tabs[q].Selected = true
-            r.TabDisplay.Text = o.Tabs[q].Name
+            r.TabDisplay.Text = iTx
             r.SelectorPosMotor:setGoal(l(o:GetCurrentTabPos(), {frequency = 6}))
             task.spawn(
                 function()
