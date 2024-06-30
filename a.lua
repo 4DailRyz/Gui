@@ -1299,8 +1299,7 @@ local aa = {
         function o.SelectTab(p, q)
             local r = o.Window
             local iTx = o.Tabs[q].Name
-            text:gsub("new/",""):gsub("end/","")
-            if string.find(iTx,"new/") then local te87 = iTx:split("end/")[2] iTx = te87 end
+            if string.find(iTx,"end/") then local te87 = iTx:split("end/")[2] iTx = te87 end
             if string.find(iTx," ") then local te87 = iTx:gsub(" ","") iTx = te87 end
             o.SelectedTab = q
             for s, t in next, o.Tabs do
@@ -1938,7 +1937,9 @@ local aa = {
             end
             local N = e(p.Tab):Init(v)
             function v.AddTab(O, P)
-                return N:New(P.Title, P.Icon, v.TabHolder)
+                local iTx = P.Title
+                if string.find(iTx,"end/") then local te87 = iTx:split("end/")[2] iTx = te87 end
+                return N:New(iTx, P.Icon, v.TabHolder)
             end
             function v.SelectTab(O, P)
                 N:SelectTab(1)
