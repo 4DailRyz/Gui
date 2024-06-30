@@ -1314,6 +1314,7 @@ local aa = {
             end
             iTx = getText(iTx, " ")
             iTx = getText(iTx, "●")
+            print(q)
             o.Tabs[q].SetTransparency(0.89)
             o.Tabs[q].Selected = true
             r.TabDisplay.Text = iTx
@@ -5562,6 +5563,5 @@ do
             return J(M)
         end
     end 
-    print(x.Frame)
 end
 
