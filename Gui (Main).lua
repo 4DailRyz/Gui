@@ -1294,18 +1294,27 @@ local aa = {
                 return B
             end
             setmetatable(x, v)
+            print(k.TextLabel.Text)
             return x
+        end
+        local function getText(name, text)
+            if name.find(name, text) then
+                local ao87h = name:gsub(text, "")
+                return ao87h
+            else
+                return name
+            end
         end
         function o.SelectTab(p, q)
             local r = o.Window
             local iTx = o.Tabs[q].Name
-            if string.find(iTx," ") then local te87 = iTx:gsub(" ","") iTx = te87 end
-            if string.find(iTx,"●") then local te87 = iTx:gsub("●","") iTx = te87 end
             o.SelectedTab = q
             for s, t in next, o.Tabs do
                 t.SetTransparency(1)
                 t.Selected = false
             end
+            iTx = getText(iTx, " ")
+            iTx = getText(iTx, "●")
             o.Tabs[q].SetTransparency(0.89)
             o.Tabs[q].Selected = true
             r.TabDisplay.Text = iTx
