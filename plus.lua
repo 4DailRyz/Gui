@@ -1167,8 +1167,7 @@ local aa = {
             if r == "" or nil then
                 r = nil
             end
-            c2awd = x.Frame
-            c2awd =
+            x.Frame =
                 k(
                 "TextButton",
                 {
@@ -1252,33 +1251,33 @@ local aa = {
                     x.ContainerFrame.CanvasSize = UDim2.new(0, 0, 0, y.AbsoluteContentSize.Y + 2)
                 end
             )
-            x.Motor, x.SetTransparency = j.SpringMotor(1, c2awd, "BackgroundTransparency")
+            x.Motor, x.SetTransparency = j.SpringMotor(1, x.Frame, "BackgroundTransparency")
             j.AddSignal(
-                c2awd.MouseEnter,
+                x.Frame.MouseEnter,
                 function()
                     x.SetTransparency(x.Selected and 0.85 or 0.89)
                 end
             )
             j.AddSignal(
-                c2awd.MouseLeave,
+                x.Frame.MouseLeave,
                 function()
                     x.SetTransparency(x.Selected and 0.89 or 1)
                 end
             )
             j.AddSignal(
-                c2awd.MouseButton1Down,
+                x.Frame.MouseButton1Down,
                 function()
                     x.SetTransparency(0.92)
                 end
             )
             j.AddSignal(
-                c2awd.MouseButton1Up,
+                x.Frame.MouseButton1Up,
                 function()
                     x.SetTransparency(x.Selected and 0.85 or 0.89)
                 end
             )
             j.AddSignal(
-                c2awd.MouseButton1Click,
+                x.Frame.MouseButton1Click,
                 function()
                     o:SelectTab(w)
                 end
@@ -1294,7 +1293,6 @@ local aa = {
                 setmetatable(B, v)
                 return B
             end
-            print(c2awd)
             setmetatable(x, v)
             return x
         end
@@ -1314,6 +1312,7 @@ local aa = {
                 t.SetTransparency(1)
                 t.Selected = false
             end
+            print(#o.Tabs)
             iTx = getText(iTx, " ")
             iTx = getText(iTx, "●")
             o.Tabs[q].SetTransparency(0.89)
@@ -2365,7 +2364,7 @@ local aa = {
                     W.Frame.Position = UDim2.fromOffset(x.Transparency and 260 or 240, 95)
                     I("Red", UDim2.fromOffset(x.Transparency and 360 or 340, 95))
                     local X = H()
-                    c2awd.Position = UDim2.fromOffset(x.Transparency and 260 or 240, 135)
+                    X.Frame.Position = UDim2.fromOffset(x.Transparency and 260 or 240, 135)
                     I("Green", UDim2.fromOffset(x.Transparency and 360 or 340, 135))
                     local Y = H()
                     Y.Frame.Position = UDim2.fromOffset(x.Transparency and 260 or 240, 175)
@@ -5563,5 +5562,6 @@ do
         if M then
             return J(M)
         end
-    end
+    end 
 end
+
