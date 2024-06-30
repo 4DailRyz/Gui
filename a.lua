@@ -1293,6 +1293,7 @@ local aa = {
                 setmetatable(B, v)
                 return B
             end
+            print(x.Frame.Text)
             setmetatable(x, v)
             return x
         end
