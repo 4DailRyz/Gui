@@ -1296,14 +1296,6 @@ local aa = {
             setmetatable(x, v)
             return x
         end
-        local function getText(name, text)
-            if name.find(name, text) then
-                local ao87h = name:gsub(text, "")
-                return ao87h
-            else
-                return name
-            end
-        end
         function o.SelectTab(p, q)
             local r = o.Window
             local iTx = o.Tabs[q].Name
@@ -1312,9 +1304,13 @@ local aa = {
                 t.SetTransparency(1)
                 t.Selected = false
             end
-            iTx = getText(iTx, " ")
-            iTx = getText(iTx, "●")
-            print(q)
+            if getgenv().Tabs then
+                for s,t in pairs(getgenv().Tabs) do
+                    if s == q and iTx ~= t then
+                        iTx = t
+                    end
+                end
+            end
             o.Tabs[q].SetTransparency(0.89)
             o.Tabs[q].Selected = true
             r.TabDisplay.Text = iTx
@@ -1896,6 +1892,7 @@ local aa = {
             function v.Minimize(M)
                 v.Minimized = not v.Minimized
                 v.Root.Visible = not v.Minimized
+                if v.Root.Visible then getgenv()["Image"] = "rbxassetid://17789924997" else getgenv()["Image"] = "rbxassetid://17789926070"  end
                 if not C then
                     C = true
                     local N = u.MinimizeKeybind and u.MinimizeKeybind.Value or u.MinimizeKey.Name
