@@ -933,7 +933,7 @@ local aa = {
                 "TextLabel",
                 {
                     Position = UDim2.new(0, 14, 0, 17),
-                    Text = "IHERE",
+                    Text = q.Title,
                     RichText = true,
                     TextColor3 = Color3.fromRGB(255, 255, 255),
                     TextTransparency = 0,
@@ -1298,6 +1298,9 @@ local aa = {
         end
         function o.SelectTab(p, q)
             local r = o.Window
+            local iTx = o.Tabs[q].Name
+            if string.find(iTx,"end/") then local te87 = iTx:split("end/")[2] iTx = te87 end
+            if string.find(iTx," ") then local te87 = iTx:gsub(" ","") iTx = te87 end
             o.SelectedTab = q
             for s, t in next, o.Tabs do
                 t.SetTransparency(1)
@@ -1305,7 +1308,7 @@ local aa = {
             end
             o.Tabs[q].SetTransparency(0.89)
             o.Tabs[q].Selected = true
-            r.TabDisplay.Text = o.Tabs[q].Name
+            r.TabDisplay.Text = iTx
             r.SelectorPosMotor:setGoal(l(o:GetCurrentTabPos(), {frequency = 6}))
             task.spawn(
                 function()
