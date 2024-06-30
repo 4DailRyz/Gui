@@ -1160,7 +1160,7 @@ local aa = {
             local t, u = e(h), o.Window
             local v = t.Elements
             o.TabCount = o.TabCount + 1
-            local w, x = o.TabCount, {Selected = false, Name = q, Type = "Tab"}
+            local w, x = o.TabCount, {Selected = false, Name = "AWDAWDAD", Type = "Tab"}
             if t:GetIcon(r) then
                 r = t:GetIcon(r)
             end
