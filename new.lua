@@ -1160,7 +1160,7 @@ local aa = {
             local t, u = e(h), o.Window
             local v = t.Elements
             o.TabCount = o.TabCount + 1
-            local w, x = o.TabCount, {Selected = false, Name = "ISUS", Type = "Tab"}
+            local w, x = o.TabCount, {Selected = false, Name = q, Type = "Tab"}
             if t:GetIcon(r) then
                 r = t:GetIcon(r)
             end
@@ -1293,19 +1293,28 @@ local aa = {
                 setmetatable(B, v)
                 return B
             end
+            print(x.Frame)
             setmetatable(x, v)
             return x
+        end
+        local function getText(name, text)
+            if name.find(name, text) then
+                local ao87h = name:gsub(text, "")
+                return ao87h
+            else
+                return name
+            end
         end
         function o.SelectTab(p, q)
             local r = o.Window
             local iTx = o.Tabs[q].Name
-            if string.find(iTx,"end/") then local te87 = iTx:split("end/")[2] iTx = te87 end
-            if string.find(iTx," ") then local te87 = iTx:gsub(" ","") iTx = te87 end
             o.SelectedTab = q
             for s, t in next, o.Tabs do
                 t.SetTransparency(1)
                 t.Selected = false
             end
+            iTx = getText(iTx, " ")
+            iTx = getText(iTx, "●")
             o.Tabs[q].SetTransparency(0.89)
             o.Tabs[q].Selected = true
             r.TabDisplay.Text = iTx
