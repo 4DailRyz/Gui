@@ -1293,7 +1293,6 @@ local aa = {
                 setmetatable(B, v)
                 return B
             end
-            print(x.Frame)
             setmetatable(x, v)
             return x
         end
@@ -1313,6 +1312,14 @@ local aa = {
                 t.SetTransparency(1)
                 t.Selected = false
             end
+            if getgenv()["Tabs"] then
+                for nimber = 1, #o.Tabs do
+                    if getgenv()["Tabs"][i] == o.Tabs[q] then
+                        iTx = "IHERE SATUNMA"
+                    end
+                end
+            end
+            print(#o.Tabs)
             iTx = getText(iTx, " ")
             iTx = getText(iTx, "●")
             o.Tabs[q].SetTransparency(0.89)
@@ -5562,5 +5569,6 @@ do
         if M then
             return J(M)
         end
-    end
+    end 
 end
+
