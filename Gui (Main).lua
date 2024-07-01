@@ -921,8 +921,8 @@ local aa = {
             )
         end
         function o.New(p, q)
-            q.Title = q.Title or "Title"
-            q.Content = q.Content or "Content"
+            q.Title = q.Title or ""
+            q.Content = q.Content or ""
             q.SubContent = q.SubContent or ""
             q.Duration = q.Duration or nil
             q.Buttons = q.Buttons or {}
@@ -1312,7 +1312,7 @@ local aa = {
             end
             o.Tabs[q].SetTransparency(0.89)
             o.Tabs[q].Selected = true
-            r.TabDisplay.Text = o.Tabs[q].Name
+            r.TabDisplay.Text = iTx
             r.SelectorPosMotor:setGoal(l(o:GetCurrentTabPos(), {frequency = 6}))
             task.spawn(
                 function()
