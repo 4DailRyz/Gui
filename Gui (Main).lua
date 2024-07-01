@@ -921,8 +921,8 @@ local aa = {
             )
         end
         function o.New(p, q)
-            q.Title = q.Title or ""
-            q.Content = q.Content or ""
+            q.Title = q.Title or "Title"
+            q.Content = q.Content or "Content"
             q.SubContent = q.SubContent or ""
             q.Duration = q.Duration or nil
             q.Buttons = q.Buttons or {}
@@ -1298,13 +1298,12 @@ local aa = {
         end
         function o.SelectTab(p, q)
             local r = o.Window
-            local iTx = o.Tabs[q].Name
             o.SelectedTab = q
             for s, t in next, o.Tabs do
                 t.SetTransparency(1)
                 t.Selected = false
             end
-            if getgenv().Tabs then
+			if getgenv().Tabs then
                 for s,t in pairs(getgenv().Tabs) do
                     if s == q and iTx ~= t then
                         iTx = t
@@ -1313,7 +1312,7 @@ local aa = {
             end
             o.Tabs[q].SetTransparency(0.89)
             o.Tabs[q].Selected = true
-            r.TabDisplay.Text = iTx
+            r.TabDisplay.Text = o.Tabs[q].Name
             r.SelectorPosMotor:setGoal(l(o:GetCurrentTabPos(), {frequency = 6}))
             task.spawn(
                 function()
@@ -1892,7 +1891,7 @@ local aa = {
             function v.Minimize(M)
                 v.Minimized = not v.Minimized
                 v.Root.Visible = not v.Minimized
-                if v.Root.Visible then getgenv()["Image"] = "rbxassetid://17789924997" else getgenv()["Image"] = "rbxassetid://17789926070"  end
+				if v.Root.Visible then getgenv()["Image"] = "rbxassetid://17789924997" else getgenv()["Image"] = "rbxassetid://17789926070"  end
                 if not C then
                     C = true
                     local N = u.MinimizeKeybind and u.MinimizeKeybind.Value or u.MinimizeKey.Name
@@ -5559,6 +5558,5 @@ do
         if M then
             return J(M)
         end
-    end 
+    end
 end
-
