@@ -517,7 +517,8 @@ local aa = {
             Close = "rbxassetid://9886659671",
             Min = "rbxassetid://9886659276",
             Max = "rbxassetid://9886659406",
-            Restore = "rbxassetid://9886659001"
+            Restore = "rbxassetid://9886659001",
+            Update = "rbxassetid://18328173810"
         }
     end,
     [9] = function()
@@ -1296,14 +1297,6 @@ local aa = {
             setmetatable(x, v)
             return x
         end
-        local function getText(name, text)
-            if name.find(name, text) then
-                local ao87h = name:gsub(text, "")
-                return ao87h
-            else
-                return name
-            end
-        end
         function o.SelectTab(p, q)
             local r = o.Window
             local iTx = o.Tabs[q].Name
@@ -1312,16 +1305,13 @@ local aa = {
                 t.SetTransparency(1)
                 t.Selected = false
             end
-            if getgenv()["Tabs"] then
-                for nimber = 1, #o.Tabs do
-                    if getgenv()["Tabs"][i] ~= iTx then
-                        iTx = "IHERE SATUNMA"
+            if getgenv().Tabs then
+                for s,t in pairs(getgenv().Tabs) do
+                    if s == q and iTx ~= t then
+                        iTx = t
                     end
                 end
             end
-            print(#o.Tabs)
-            iTx = getText(iTx, " ")
-            iTx = getText(iTx, "●")
             o.Tabs[q].SetTransparency(0.89)
             o.Tabs[q].Selected = true
             r.TabDisplay.Text = iTx
@@ -1631,6 +1621,19 @@ local aa = {
                     p.Window:Minimize()
                 end
             )
+            o.UpdateButton =
+            q(
+            i.Update,
+            UDim2.new(1, -120, 0, 4),
+            o.Frame,
+            function()
+                p.Window:Dialog {
+                    Title = (getgenv()["Update"] and getgenv()["Update"].Title) or "Notify",
+                    Content = (getgenv()["Update"] and getgenv()["Update"].Content) or "nil",
+                    Buttons = {{Title = "Close"}}
+                }
+            end
+        )
             return o
         end
     end,
@@ -1903,6 +1906,7 @@ local aa = {
             function v.Minimize(M)
                 v.Minimized = not v.Minimized
                 v.Root.Visible = not v.Minimized
+                if v.Root.Visible then getgenv()["Image"] = "rbxassetid://17789924997" else getgenv()["Image"] = "rbxassetid://17789926070" end
                 if not C then
                     C = true
                     local N = u.MinimizeKeybind and u.MinimizeKeybind.Value or u.MinimizeKey.Name
