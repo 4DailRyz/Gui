@@ -518,7 +518,7 @@ local aa = {
             Min = "rbxassetid://9886659276",
             Max = "rbxassetid://9886659406",
             Restore = "rbxassetid://9886659001",
-            Update = "rbxassetid://18328603528"
+            Update = "rbxassetid://18328780511"
         }
     end,
     [9] = function()
@@ -1624,7 +1624,7 @@ local aa = {
             o.UpdateButton =
             q(
             i.Update,
-            UDim2.new(1, -120, 0, 4),
+            UDim2.new(1, -115, 0, 4),
             o.Frame,
             function()
                 p.Window:Dialog {
