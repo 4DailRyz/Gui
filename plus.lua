@@ -518,7 +518,7 @@ local aa = {
             Min = "rbxassetid://9886659276",
             Max = "rbxassetid://9886659406",
             Restore = "rbxassetid://9886659001",
-            Update = "rbxassetid://18328243596"
+            Update = "rbxassetid://18328688958"
         }
     end,
     [9] = function()
