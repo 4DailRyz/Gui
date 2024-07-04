@@ -519,7 +519,7 @@ local aa = {
             Min = "rbxassetid://9886659276",
             Max = "rbxassetid://9886659406",
             Restore = "rbxassetid://9886659001",
-            Update = "rbxassetid://18329821926"
+            Update = "rbxassetid://18329880290"
         }
     end,
     [9] = function()
@@ -5327,12 +5327,12 @@ local aa = {
         local aa, ab, ac, ad, ae = b(53)
         return {
             Name = "Blue",
-            Accent = Color3.fromRGB(120, 255, 255),
-            AcrylicMain = Color3.fromRGB(225, 225, 225),
-            AcrylicBorder = Color3.fromRGB(50, 50, 200),
-            AcrylicGradient = ColorSequence.new(Color3.fromRGB(35, 35, 255), Color3.fromRGB(35, 35, 255)),
-            AcrylicNoise = 0.9,
-            TitleBarLine = Color3.fromRGB(75, 75, 255),
+            Accent = Color3.fromRGB(200, 200, 200),
+            AcrylicMain = Color3.fromRGB(30, 30, 30),
+            AcrylicBorder = Color3.fromRGB(5, 10, 255),
+            AcrylicGradient = ColorSequence.new(Color3.fromRGB(60, 80, 255), Color3.fromRGB(30, 60, 200)),
+            AcrylicNoise = 0.92,
+            TitleBarLine = Color3.fromRGB(0, 0, 0),
             Tab = Color3.fromRGB(180, 140, 160),
             Element = Color3.fromRGB(200, 120, 170),
             ElementBorder = Color3.fromRGB(110, 70, 85),
