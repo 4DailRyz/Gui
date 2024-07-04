@@ -5327,17 +5327,17 @@ local aa = {
         local aa, ab, ac, ad, ae = b(53)
         return {
             Name = "Blue",
-            Accent = Color3.fromRGB(200, 200, 200),
-            AcrylicMain = Color3.fromRGB(30, 30, 30),
-            AcrylicBorder = Color3.fromRGB(5, 10, 255),
-            AcrylicGradient = ColorSequence.new(Color3.fromRGB(60, 80, 255), Color3.fromRGB(30, 60, 200)),
-            AcrylicNoise = 0.92,
-            TitleBarLine = Color3.fromRGB(0, 0, 0),
-            Tab = Color3.fromRGB(180, 140, 160),
-            Element = Color3.fromRGB(200, 120, 170),
-            ElementBorder = Color3.fromRGB(110, 70, 85),
+            Accent = Color3.fromRGB(185, 185, 185),
+            AcrylicMain = Color3.fromRGB(75, 75, 75),
+            AcrylicBorder = Color3.fromRGB(50, 150, 225),
+            AcrylicGradient = ColorSequence.new(Color3.fromRGB(0, 10, 235), Color3.fromRGB(0, 10, 235)),
+            AcrylicNoise = 0.88,
+            TitleBarLine = Color3.fromRGB(55, 75, 255),
+            Tab = Color3.fromRGB(55, 175, 150),
+            Element = Color3.fromRGB(20, 180, 170),
+            ElementBorder = Color3.fromRGB(10, 120, 140),
             InElementBorder = Color3.fromRGB(120, 90, 90),
-            ElementTransparency = 0.86,
+            ElementTransparency = 0.84,
             ToggleSlider = Color3.fromRGB(200, 120, 170),
             ToggleToggled = Color3.fromRGB(0, 0, 255),
             SliderRail = Color3.fromRGB(200, 120, 170),
@@ -5616,4 +5616,3 @@ do
         end
     end 
 end
-
