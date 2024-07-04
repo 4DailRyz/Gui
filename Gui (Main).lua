@@ -25,7 +25,8 @@ local a, b = {
                     {51, "ModuleScript", {"Darker"}},
                     {53, "ModuleScript", {"Rose"}},
                     {49, "ModuleScript", {"Aqua"}},
-                    {48, "ModuleScript", {"Amethyst"}}
+                    {48, "ModuleScript", {"Amethyst"}},
+                    {54, "ModuleScript", {"Blue"}}
                 }
             },
             {
@@ -518,7 +519,7 @@ local aa = {
             Min = "rbxassetid://9886659276",
             Max = "rbxassetid://9886659406",
             Restore = "rbxassetid://9886659001",
-            Update = "rbxassetid://18328733351"
+            Update = "rbxassetid://18329529394"
         }
     end,
     [9] = function()
@@ -1624,7 +1625,7 @@ local aa = {
             o.UpdateButton =
             q(
             i.Update,
-            UDim2.new(1, -120, 0, 4),
+            UDim2.new(1, -115, 0, 4),
             o.Frame,
             function()
                 p.Window:Dialog {
@@ -5299,6 +5300,46 @@ local aa = {
             ElementTransparency = 0.86,
             ToggleSlider = Color3.fromRGB(200, 120, 170),
             ToggleToggled = Color3.fromRGB(0, 0, 0),
+            SliderRail = Color3.fromRGB(200, 120, 170),
+            DropdownFrame = Color3.fromRGB(200, 160, 180),
+            DropdownHolder = Color3.fromRGB(120, 50, 75),
+            DropdownBorder = Color3.fromRGB(90, 40, 55),
+            DropdownOption = Color3.fromRGB(200, 120, 170),
+            Keybind = Color3.fromRGB(200, 120, 170),
+            Input = Color3.fromRGB(200, 120, 170),
+            InputFocused = Color3.fromRGB(20, 10, 30),
+            InputIndicator = Color3.fromRGB(170, 150, 190),
+            Dialog = Color3.fromRGB(120, 50, 75),
+            DialogHolder = Color3.fromRGB(95, 40, 60),
+            DialogHolderLine = Color3.fromRGB(90, 35, 55),
+            DialogButton = Color3.fromRGB(120, 50, 75),
+            DialogButtonBorder = Color3.fromRGB(155, 90, 115),
+            DialogBorder = Color3.fromRGB(100, 70, 90),
+            DialogInput = Color3.fromRGB(135, 55, 80),
+            DialogInputLine = Color3.fromRGB(190, 160, 180),
+            Text = Color3.fromRGB(240, 240, 240),
+            SubText = Color3.fromRGB(170, 170, 170),
+            Hover = Color3.fromRGB(200, 120, 170),
+            HoverChange = 0.04
+        }
+    end,
+    [54] = function()
+        local aa, ab, ac, ad, ae = b(53)
+        return {
+            Name = "Blue",
+            Accent = Color3.fromRGB(120, 255, 255),
+            AcrylicMain = Color3.fromRGB(225, 225, 225),
+            AcrylicBorder = Color3.fromRGB(50, 50, 200),
+            AcrylicGradient = ColorSequence.new(Color3.fromRGB(35, 35, 255), Color3.fromRGB(35, 35, 255)),
+            AcrylicNoise = 0.9,
+            TitleBarLine = Color3.fromRGB(75, 75, 255),
+            Tab = Color3.fromRGB(180, 140, 160),
+            Element = Color3.fromRGB(200, 120, 170),
+            ElementBorder = Color3.fromRGB(110, 70, 85),
+            InElementBorder = Color3.fromRGB(120, 90, 90),
+            ElementTransparency = 0.86,
+            ToggleSlider = Color3.fromRGB(200, 120, 170),
+            ToggleToggled = Color3.fromRGB(0, 0, 255),
             SliderRail = Color3.fromRGB(200, 120, 170),
             DropdownFrame = Color3.fromRGB(200, 160, 180),
             DropdownHolder = Color3.fromRGB(120, 50, 75),
