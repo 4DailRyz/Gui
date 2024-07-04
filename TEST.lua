@@ -5327,13 +5327,13 @@ local aa = {
         local aa, ab, ac, ad, ae = b(53)
         return {
             Name = "Blue",
-            Accent = Color3.fromRGB(120, 255, 255),
-            AcrylicMain = Color3.fromRGB(0, 0, 0),
+            Accent = Color3.fromRGB(200, 200, 200),
+            AcrylicMain = Color3.fromRGB(60, 60, 60),
             AcrylicBorder = Color3.fromRGB(0, 0, 255),
-            AcrylicGradient = ColorSequence.new(Color3.fromRGB(35, 35, 255), Color3.fromRGB(35, 35, 255)),
-            AcrylicNoise = 0,
-            TitleBarLine = Color3.fromRGB(75, 75, 255),
-            Tab = Color3.fromRGB(180, 140, 160),
+            AcrylicGradient = ColorSequence.new(Color3.fromRGB(10, 25, 255), Color3.fromRGB(5, 15, 225)),
+            AcrylicNoise = 0.88,
+            TitleBarLine = Color3.fromRGB(0, 0, 0),
+            Tab = Color3.fromRGB(55, 175, 150),
             Element = Color3.fromRGB(200, 120, 170),
             ElementBorder = Color3.fromRGB(110, 70, 85),
             InElementBorder = Color3.fromRGB(120, 90, 90),
@@ -5616,4 +5616,3 @@ do
         end
     end 
 end
-
