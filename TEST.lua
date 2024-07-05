@@ -198,9 +198,16 @@ local aa = {
             if D.Acrylic then
                 r.init()
             end
-            local E = e(s.Window) {Parent = w, Size = D.Size, Title = D.Title, SubTitle = D.SubTitle, UpTitle = D.UpTitle, UpSubTitle = D.UpSubTitle, TabWidth = D.TabWidth}
+            local E = e(s.Window) {
+                Parent = w,
+                Size = D.Size,
+                Title = D.Title,
+                SubTitle = D.SubTitle,
+                UpdateDate = D.UpdateDate,
+                UpdateLog = D.UpdateLog,
+                TabWidth = D.TabWidth
+            }
             x.Window = E
-            print(D.UpTitle, D.UpSubTitle)
             x:SetTheme(D.Theme)
             return E
         end
@@ -1663,6 +1670,9 @@ local aa = {
             nil,
             o.Frame.Parent.Parent,
             function ()
+                for xawd, fawf in pairs(n) do
+                    print(xawd, fawf)
+                end
                 p.Window:Minimize()
             end
             )
@@ -1768,7 +1778,14 @@ local aa = {
                 {BackgroundTransparency = 1, ZIndex = 125, Size = v.Size, Position = v.Position, Parent = t.Parent},
                 {v.AcrylicPaint.Frame, v.TabDisplay, v.ContainerHolder, F, E}
             )
-            v.TitleBar = e(d.Parent.TitleBar) {Title = t.Title, SubTitle = t.SubTitle, Parent = v.Root, Window = v}
+            v.TitleBar = e(d.Parent.TitleBar) {
+                Title = t.Title,
+                SubTitle = t.SubTitle,
+                UpdateDate = t.UpdateDate,
+                UpdateLog = t.UpdateLog,
+                Parent = v.Root,
+                Window = v
+            }
             if e(k).UseAcrylic then
                 v.AcrylicPaint.AddParent(v.Root)
             end
