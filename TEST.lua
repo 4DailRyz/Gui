@@ -26,7 +26,7 @@ local a, b = {
                     {53, "ModuleScript", {"Rose"}},
                     {49, "ModuleScript", {"Aqua"}},
                     {48, "ModuleScript", {"Amethyst"}},
-                    {54, "ModuleScript", {"Blue"}}
+                    {54, "ModuleScript", {"Pink"}}
                 }
             },
             {
@@ -198,8 +198,7 @@ local aa = {
             if D.Acrylic then
                 r.init()
             end
-            local E =
-                e(s.Window) {Parent = w, Size = D.Size, Title = D.Title, SubTitle = D.SubTitle, TabWidth = D.TabWidth}
+            local E = e(s.Window) {Parent = w, Size = D.Size, Title = D.Title, SubTitle = D.SubTitle, TabWidth = D.TabWidth}
             x.Window = E
             x:SetTheme(D.Theme)
             return E
@@ -904,6 +903,7 @@ local aa = {
                 "Frame",
                 {
                     Position = UDim2.new(1, -30, 1, -30),
+                    ZIndex = 125,
                     Size = UDim2.new(0, 310, 1, -30),
                     AnchorPoint = Vector2.new(1, 1),
                     BackgroundTransparency = 1,
@@ -1158,11 +1158,11 @@ local aa = {
             local q, r = o.Window.TabHolder.AbsolutePosition.Y, o.Tabs[o.SelectedTab].Frame.AbsolutePosition.Y
             return r - q
         end
-        function o.New(p, q, r, s)
+        function o.New(p, q, d, r, s)
             local t, u = e(h), o.Window
             local v = t.Elements
             o.TabCount = o.TabCount + 1
-            local w, x = o.TabCount, {Selected = false, Name = q, Type = "Tab"}
+            local w, x = o.TabCount, {Selected = false, Name = d or q, Type = "Tab"}
             if t:GetIcon(r) then
                 r = t:GetIcon(r)
             end
@@ -1306,13 +1306,6 @@ local aa = {
                 t.SetTransparency(1)
                 t.Selected = false
             end
-            if getgenv().Tabs then
-                for s,t in pairs(getgenv().Tabs) do
-                    if s == q and iTx ~= t then
-                        iTx = t
-                    end
-                end
-            end
             o.Tabs[q].SetTransparency(0.89)
             o.Tabs[q].Selected = true
             r.TabDisplay.Text = iTx
@@ -1455,7 +1448,7 @@ local aa = {
         local j, k = e(h.Creator), e(h.Packages.Flipper)
         local l, m = j.New, j.AddSignal
         return function(n)
-            local o, p, q =
+            local o, p, q, zq =
                 {},
                 e(h),
                 function(o, p, q, r)
@@ -1518,6 +1511,34 @@ local aa = {
                     s.SetCallback = function(v)
                         s.Callback = v
                     end
+                    return s
+                end,
+                function(o, p, q, r)
+                    local s = {Callback = r or function()
+                    end}
+                    s.Frame =
+                        l(
+                        "ImageButton",
+                        {
+                            Size = UDim2.new(0, 60, 0, 60),
+                            AnchorPoint = Vector2.new(0.5, 0.5),
+                            ZIndex = 125,
+                            BackgroundTransparency = 1,
+                            Parent = q,
+                            Position = p or UDim2.new(0.0320, 0, 0.933, 0),
+                            Image = o,
+                            ThemeTag = {BackgroundColor3 = "Text"}
+                        },
+                        {
+                            l("UICorner", {CornerRadius = UDim.new(1, 1)}),
+                        }
+                    )
+
+                    m(s.Frame.MouseButton1Click, s.Callback)
+                    s.SetCallback = function(v)
+                        s.Callback = v
+                    end
+
                     return s
                 end
             o.Frame =
@@ -1629,12 +1650,21 @@ local aa = {
             o.Frame,
             function()
                 p.Window:Dialog {
-                    Title = (getgenv()["Update"] and getgenv()["Update"].Title) or "Notify",
-                    Content = (getgenv()["Update"] and getgenv()["Update"].Content) or "nil",
+                    Title = (getgenv().Update and getgenv().Update.Title) or "00/00/0000 [V Title]",
+                    Content = (getgenv().Update and getgenv().Update.Content) or "● Content",
                     Buttons = {{Title = "Close"}}
                 }
             end
-        )
+            )
+            o.VisibleButton = 
+            zq(
+            "rbxassetid://18338830163",
+            nil,
+            o.Frame.Parent.Parent,
+            function ()
+                p.Window:Minimize()
+            end
+            )
             return o
         end
     end,
@@ -1734,10 +1764,10 @@ local aa = {
             v.Root =
                 s(
                 "Frame",
-                {BackgroundTransparency = 1, Size = v.Size, Position = v.Position, Parent = t.Parent},
+                {BackgroundTransparency = 1, ZIndex = 125, Size = v.Size, Position = v.Position, Parent = t.Parent},
                 {v.AcrylicPaint.Frame, v.TabDisplay, v.ContainerHolder, F, E}
             )
-            v.TitleBar = e(d.Parent.TitleBar) {Title = t.Title, SubTitle = t.SubTitle, Parent = v.Root, Window = v}
+            v.TitleBar = e(d.Parent.TitleBar) {Title = t.Title, SubTitle = t.SubTitle, UpdateTitle = t.UpdateTitle, UpdateSubTitle = t.UpdateSubTitle, Parent = v.Root, Window = v}
             if e(k).UseAcrylic then
                 v.AcrylicPaint.AddParent(v.Root)
             end
@@ -1908,6 +1938,9 @@ local aa = {
                 v.Minimized = not v.Minimized
                 v.Root.Visible = not v.Minimized
                 if v.Root.Visible then getgenv()["Image"] = "rbxassetid://17789924997" else getgenv()["Image"] = "rbxassetid://17789926070" end
+                for awdwad,ddddawf in pairs(u) do
+                    print(awdwad,ddddawf)
+                end
                 if not C then
                     C = true
                     local N = u.MinimizeKeybind and u.MinimizeKeybind.Value or u.MinimizeKey.Name
@@ -1958,7 +1991,7 @@ local aa = {
             end
             local N = e(p.Tab):Init(v)
             function v.AddTab(O, P)
-                return N:New(P.Title, P.Icon, v.TabHolder)
+                return N:New(P.Title, P.Name, P.Icon, v.TabHolder)
             end
             function v.SelectTab(O, P)
                 N:SelectTab(1)
@@ -2785,7 +2818,7 @@ local aa = {
             local v =
                 e(
                 "Frame",
-                {BackgroundTransparency = 1, Size = UDim2.fromOffset(170, 300), Parent = h.Library.GUI, Visible = false},
+                {BackgroundTransparency = 1, ZIndex = 125, Size = UDim2.fromOffset(170, 300), Parent = h.Library.GUI, Visible = false},
                 {u, e("UISizeConstraint", {MinSize = Vector2.new(170, 0)})}
             )
             table.insert(k.OpenFrames, v)
@@ -5088,7 +5121,7 @@ local aa = {
     end,
     [47] = function()
         local aa, ab, ac, ad, ae = b(47)
-        local af = {Names = {"Dark", "Darker", "Light", "Aqua", "Amethyst", "Rose", "Blue"}}
+        local af = {Names = {"Dark", "Darker", "Light", "Aqua", "Amethyst", "Rose"}}
         for ag, ah in next, ab:GetChildren() do
             local aj = ac(ah)
             af[aj.Name] = aj
@@ -5324,42 +5357,42 @@ local aa = {
         }
     end,
     [54] = function()
-        local aa, ab, ac, ad, ae = b(53)
+        local aa, ab, ac, ad, ae = b(54)
         return {
-            Name = "Blue",
-            Accent = Color3.fromRGB(185, 185, 185),
-            AcrylicMain = Color3.fromRGB(75, 75, 75),
-            AcrylicBorder = Color3.fromRGB(50, 150, 225),
-            AcrylicGradient = ColorSequence.new(Color3.fromRGB(0, 10, 235), Color3.fromRGB(0, 10, 235)),
-            AcrylicNoise = 0.88,
-            TitleBarLine = Color3.fromRGB(55, 75, 255),
-            Tab = Color3.fromRGB(55, 175, 150),
-            Element = Color3.fromRGB(5, 85, 215),
-            ElementBorder = Color3.fromRGB(10, 120, 140),
-            InElementBorder = Color3.fromRGB(120, 90, 90),
-            ElementTransparency = 0.84,
-            ToggleSlider = Color3.fromRGB(200, 120, 170),
-            ToggleToggled = Color3.fromRGB(0, 0, 255),
-            SliderRail = Color3.fromRGB(200, 120, 170),
-            DropdownFrame = Color3.fromRGB(200, 160, 180),
-            DropdownHolder = Color3.fromRGB(120, 50, 75),
-            DropdownBorder = Color3.fromRGB(90, 40, 55),
-            DropdownOption = Color3.fromRGB(200, 120, 170),
-            Keybind = Color3.fromRGB(200, 120, 170),
-            Input = Color3.fromRGB(200, 120, 170),
-            InputFocused = Color3.fromRGB(20, 10, 30),
-            InputIndicator = Color3.fromRGB(170, 150, 190),
-            Dialog = Color3.fromRGB(120, 50, 75),
-            DialogHolder = Color3.fromRGB(95, 40, 60),
-            DialogHolderLine = Color3.fromRGB(90, 35, 55),
-            DialogButton = Color3.fromRGB(120, 50, 75),
-            DialogButtonBorder = Color3.fromRGB(155, 90, 115),
-            DialogBorder = Color3.fromRGB(100, 70, 90),
-            DialogInput = Color3.fromRGB(135, 55, 80),
-            DialogInputLine = Color3.fromRGB(190, 160, 180),
-            Text = Color3.fromRGB(240, 240, 240),
-            SubText = Color3.fromRGB(170, 170, 170),
-            Hover = Color3.fromRGB(200, 120, 170),
+            Name = "Pink",
+            Accent = Color3.fromRGB(255, 165, 185),
+            AcrylicMain = Color3.fromRGB(238, 130, 238),
+            AcrylicBorder = Color3.fromRGB(255, 185, 190),
+            AcrylicGradient = ColorSequence.new(Color3.fromRGB(255, 192, 203), Color3.fromRGB(255, 192, 203)),
+            AcrylicNoise = 0.92,
+            TitleBarLine = Color3.fromRGB(255, 182, 193),
+            Tab = Color3.fromRGB(30, 30, 30),
+            Element = Color3.fromRGB(0, 0, 0),
+            ElementBorder = Color3.fromRGB(0, 0, 0),
+            InElementBorder = Color3.fromRGB(0, 0, 0),
+            ElementTransparency = 0.66,
+            ToggleSlider = Color3.fromRGB(0, 0, 0),
+            ToggleToggled = Color3.fromRGB(0, 0, 0),
+            SliderRail = Color3.fromRGB(0, 0, 0),
+            DropdownFrame = Color3.fromRGB(0, 0, 0),
+            DropdownHolder = Color3.fromRGB(0, 0, 0),
+            DropdownBorder = Color3.fromRGB(0, 0, 0),
+            DropdownOption = Color3.fromRGB(0, 0, 0),
+            Keybind = Color3.fromRGB(0, 0, 0),
+            Input = Color3.fromRGB(0, 0, 0),
+            InputFocused = Color3.fromRGB(0, 0, 0),
+            InputIndicator = Color3.fromRGB(0, 0, 0),
+            Dialog = Color3.fromRGB(0, 0, 0),
+            DialogHolder = Color3.fromRGB(0, 0, 0),
+            DialogHolderLine = Color3.fromRGB(0, 0, 0),
+            DialogButton = Color3.fromRGB(0, 0, 0),
+            DialogButtonBorder = Color3.fromRGB(0, 0, 0),
+            DialogBorder = Color3.fromRGB(0, 0, 0),
+            DialogInput = Color3.fromRGB(0, 0, 0),
+            DialogInputLine = Color3.fromRGB(0, 0, 0),
+            Text = Color3.fromRGB(0, 0, 0),
+            SubText = Color3.fromRGB(0, 0, 0),
+            Hover = Color3.fromRGB(0, 0, 0),
             HoverChange = 0.04
         }
     end
@@ -5614,5 +5647,5 @@ do
         if M then
             return J(M)
         end
-    end 
+    end
 end
