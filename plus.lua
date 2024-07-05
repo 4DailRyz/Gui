@@ -198,7 +198,7 @@ local aa = {
             if D.Acrylic then
                 r.init()
             end
-            local E = e(s.Window) {Parent = w, Pussy = D.Pussy, Size = D.Size, Title = D.Title, SubTitle = D.SubTitle, TabWidth = D.TabWidth}
+            local E = e(s.Window) {Parent = w, Size = D.Size, Title = D.Title, SubTitle = D.SubTitle, TabWidth = D.TabWidth}
             x.Window = E
             x:SetTheme(D.Theme)
             return E
@@ -1656,7 +1656,7 @@ local aa = {
                 }
             end
             )
-            o.PowerButton = 
+            o.VisibleButton = 
             zq(
             "rbxassetid://18338830163",
             nil,
@@ -1767,7 +1767,7 @@ local aa = {
                 {BackgroundTransparency = 1, ZIndex = 125, Size = v.Size, Position = v.Position, Parent = t.Parent},
                 {v.AcrylicPaint.Frame, v.TabDisplay, v.ContainerHolder, F, E}
             )
-            v.TitleBar = e(d.Parent.TitleBar) {Title = t.Title, SubTitle = t.SubTitle, Parent = v.Root, Window = v}
+            v.TitleBar = e(d.Parent.TitleBar) {Title = "XXXX", SubTitle = t.SubTitle, Parent = v.Root, Window = v}
             if e(k).UseAcrylic then
                 v.AcrylicPaint.AddParent(v.Root)
             end
