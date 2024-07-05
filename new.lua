@@ -198,7 +198,7 @@ local aa = {
             if D.Acrylic then
                 r.init()
             end
-            local E = e(s.Window) {Parent = w, Size = D.Size, Title = D.Title, SubTitle = D.SubTitle, TabWidth = D.TabWidth}
+            local E = e(s.Window) {Parent = w, Size = D.Size, Title = "IHERE", SubTitle = D.SubTitle, TabWidth = D.TabWidth}
             x.Window = E
             x:SetTheme(D.Theme)
             return E
@@ -1656,15 +1656,12 @@ local aa = {
                 }
             end
             )
-            o.PowerButton = 
+            o.VisibleButton = 
             zq(
             "rbxassetid://18338830163",
             nil,
             o.Frame.Parent.Parent,
             function ()
-                for old, val in pairs(p.Window) do
-                    print(old, val)
-                end
                 p.Window:Minimize()
             end
             )
