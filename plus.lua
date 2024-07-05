@@ -1767,7 +1767,8 @@ local aa = {
                 {BackgroundTransparency = 1, ZIndex = 125, Size = v.Size, Position = v.Position, Parent = t.Parent},
                 {v.AcrylicPaint.Frame, v.TabDisplay, v.ContainerHolder, F, E}
             )
-            v.TitleBar = e(d.Parent.TitleBar) {Title = "XXXX", SubTitle = t.SubTitle, Parent = v.Root, Window = v}
+            print(e(d.Parent))
+            v.TitleBar = e(d.Parent.TitleBar) {Title = t.Title, SubTitle = t.SubTitle, Parent = v.Root, Window = v}
             if e(k).UseAcrylic then
                 v.AcrylicPaint.AddParent(v.Root)
             end
