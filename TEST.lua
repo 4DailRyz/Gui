@@ -198,8 +198,9 @@ local aa = {
             if D.Acrylic then
                 r.init()
             end
-            local E = e(s.Window) {Parent = w, Size = D.Size, Title = D.Title, SubTitle = D.SubTitle, TabWidth = D.TabWidth}
+            local E = e(s.Window) {Parent = w, Size = D.Size, Title = D.Title, SubTitle = D.SubTitle, UpTitle = D.UpTitle, UpSubTitle = D.UpSubTitle, TabWidth = D.TabWidth}
             x.Window = E
+            print(D.UpTitle, D.UpSubTitle)
             x:SetTheme(D.Theme)
             return E
         end
@@ -1767,7 +1768,7 @@ local aa = {
                 {BackgroundTransparency = 1, ZIndex = 125, Size = v.Size, Position = v.Position, Parent = t.Parent},
                 {v.AcrylicPaint.Frame, v.TabDisplay, v.ContainerHolder, F, E}
             )
-            v.TitleBar = e(d.Parent.TitleBar) {Title = t.Title, SubTitle = t.SubTitle, UpdateTitle = t.UpdateTitle, UpdateSubTitle = t.UpdateSubTitle, Parent = v.Root, Window = v}
+            v.TitleBar = e(d.Parent.TitleBar) {Title = t.Title, SubTitle = t.SubTitle, Parent = v.Root, Window = v}
             if e(k).UseAcrylic then
                 v.AcrylicPaint.AddParent(v.Root)
             end
@@ -1938,9 +1939,6 @@ local aa = {
                 v.Minimized = not v.Minimized
                 v.Root.Visible = not v.Minimized
                 if v.Root.Visible then getgenv()["Image"] = "rbxassetid://17789924997" else getgenv()["Image"] = "rbxassetid://17789926070" end
-                for awdwad,ddddawf in pairs(u) do
-                    print(awdwad,ddddawf)
-                end
                 if not C then
                     C = true
                     local N = u.MinimizeKeybind and u.MinimizeKeybind.Value or u.MinimizeKey.Name
