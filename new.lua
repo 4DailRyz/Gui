@@ -198,7 +198,16 @@ local aa = {
             if D.Acrylic then
                 r.init()
             end
-            local E = e(s.Window) {Parent = w, Size = D.Size, Title = D.Title, SubTitle = D.SubTitle, TabWidth = D.TabWidth}
+            local E = e(s.Window) {
+                Parent = w,
+                Size = D.Size,
+                Title = D.Title,
+                SubTitle = D.SubTitle,
+                UpdateDate = D.UpdateDate,
+                UpdateLog = D.UpdateLog,
+                IconVisual = D.IconVisual,
+                TabWidth = D.TabWidth
+            }
             x.Window = E
             x:SetTheme(D.Theme)
             return E
@@ -1650,21 +1659,18 @@ local aa = {
             o.Frame,
             function()
                 p.Window:Dialog {
-                    Title = (getgenv().Update and getgenv().Update.Title) or "00/00/0000 [V Title]",
-                    Content = (getgenv().Update and getgenv().Update.Content) or "● Content",
+                    Title = n.UpdateDate or "00/00/0000 [V Title]",
+                    Content = n.UpdateLog or "● Content",
                     Buttons = {{Title = "Close"}}
                 }
             end
             )
             o.VisibleButton = 
             zq(
-            "rbxassetid://18338830163",
+            n.IconVisual or "rbxassetid://18338830163",
             nil,
             o.Frame.Parent.Parent,
             function ()
-                for xawd, fawf in pairs(n) do
-                    print(xawd, fawf)
-                end
                 p.Window:Minimize()
             end
             )
@@ -1775,12 +1781,27 @@ local aa = {
                 SubTitle = t.SubTitle,
                 UpdateDate = t.UpdateDate,
                 UpdateLog = t.UpdateLog,
+                IconVisual = t.IconVisual,
                 Parent = v.Root,
                 Window = v
             }
             if e(k).UseAcrylic then
                 v.AcrylicPaint.AddParent(v.Root)
             end
+            local BS =
+            s(
+                "Frame",
+                {
+                    Parent = t.Parent,
+                    AnchorPoint = Vector2.new(1, 1),
+                    BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+                    BorderSizePixel = 0,
+                    ZIndex = 10,
+                    Position = UDim2.new(1.00222063, 0, 1.01891279, 0),
+                    Size = UDim2.new(10, 0, 10, 0),
+                    Visible = false
+                }
+            )
             local G, H =
                 l.GroupMotor.new {X = v.Size.X.Offset, Y = v.Size.Y.Offset},
                 l.GroupMotor.new {X = v.Position.X.Offset, Y = v.Position.Y.Offset}
@@ -1947,11 +1968,13 @@ local aa = {
             function v.Minimize(M)
                 v.Minimized = not v.Minimized
                 v.Root.Visible = not v.Minimized
-                if v.Root.Visible then getgenv()["Image"] = "rbxassetid://17789924997" else getgenv()["Image"] = "rbxassetid://17789926070" end
                 if not C then
                     C = true
                     local N = u.MinimizeKeybind and u.MinimizeKeybind.Value or u.MinimizeKey.Name
                 end
+            end
+            function v.Black(M, VAW)
+                BS.Visible = VAW
             end
             function v.Destroy(M)
                 if e(k).UseAcrylic then
