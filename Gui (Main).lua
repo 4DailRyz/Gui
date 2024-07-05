@@ -205,6 +205,7 @@ local aa = {
                 SubTitle = D.SubTitle,
                 UpdateDate = D.UpdateDate,
                 UpdateLog = D.UpdateLog,
+                IconVisual = D.IconVisual,
                 TabWidth = D.TabWidth
             }
             x.Window = E
@@ -1521,7 +1522,7 @@ local aa = {
                     end
                     return s
                 end,
-                function(o, p, q, r)
+                function(q, p, r)
                     local s = {Callback = r or function()
                     end}
                     s.Frame =
@@ -1534,8 +1535,7 @@ local aa = {
                             BackgroundTransparency = 1,
                             Parent = q,
                             Position = p or UDim2.new(0.0320, 0, 0.933, 0),
-                            Image = o,
-                            ThemeTag = {BackgroundColor3 = "Text"}
+                            ThemeTag = {Image = n.IconVisual or "Image"}
                         },
                         {
                             l("UICorner", {CornerRadius = UDim.new(1, 1)}),
@@ -1666,9 +1666,8 @@ local aa = {
             )
             o.VisibleButton = 
             zq(
-            "rbxassetid://18338830163",
-            nil,
             o.Frame.Parent.Parent,
+            nil,
             function ()
                 p.Window:Minimize()
             end
@@ -1780,12 +1779,27 @@ local aa = {
                 SubTitle = t.SubTitle,
                 UpdateDate = t.UpdateDate,
                 UpdateLog = t.UpdateLog,
+                IconVisual = t.IconVisual,
                 Parent = v.Root,
                 Window = v
             }
             if e(k).UseAcrylic then
                 v.AcrylicPaint.AddParent(v.Root)
             end
+            local BS =
+            s(
+                "Frame",
+                {
+                    Parent = t.Parent,
+                    AnchorPoint = Vector2.new(1, 1),
+                    BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+                    BorderSizePixel = 0,
+                    ZIndex = 10,
+                    Position = UDim2.new(1.00222063, 0, 1.01891279, 0),
+                    Size = UDim2.new(10, 0, 10, 0),
+                    Visible = false
+                }
+            )
             local G, H =
                 l.GroupMotor.new {X = v.Size.X.Offset, Y = v.Size.Y.Offset},
                 l.GroupMotor.new {X = v.Position.X.Offset, Y = v.Position.Y.Offset}
@@ -1956,6 +1970,9 @@ local aa = {
                     C = true
                     local N = u.MinimizeKeybind and u.MinimizeKeybind.Value or u.MinimizeKey.Name
                 end
+            end
+            function v.Black(M, VAW)
+                BS.Visible = VAW
             end
             function v.Destroy(M)
                 if e(k).UseAcrylic then
@@ -5143,6 +5160,7 @@ local aa = {
         local aa, ab, ac, ad, ae = b(48)
         return {
             Name = "Amethyst",
+            Image = "rbxassetid://18343258150",
             Accent = Color3.fromRGB(97, 62, 167),
             AcrylicMain = Color3.fromRGB(20, 20, 20),
             AcrylicBorder = Color3.fromRGB(110, 90, 130),
@@ -5183,6 +5201,7 @@ local aa = {
         local aa, ab, ac, ad, ae = b(49)
         return {
             Name = "Aqua",
+            Image = "rbxassetid://18343250276",
             Accent = Color3.fromRGB(60, 165, 165),
             AcrylicMain = Color3.fromRGB(20, 20, 20),
             AcrylicBorder = Color3.fromRGB(50, 100, 100),
@@ -5223,6 +5242,7 @@ local aa = {
         local aa, ab, ac, ad, ae = b(50)
         return {
             Name = "Dark",
+            Image = "rbxassetid://18343243074",
             Accent = Color3.fromRGB(96, 205, 255),
             AcrylicMain = Color3.fromRGB(60, 60, 60),
             AcrylicBorder = Color3.fromRGB(90, 90, 90),
@@ -5263,6 +5283,7 @@ local aa = {
         local aa, ab, ac, ad, ae = b(51)
         return {
             Name = "Darker",
+            Image = "rbxassetid://18343252912",
             Accent = Color3.fromRGB(72, 138, 182),
             AcrylicMain = Color3.fromRGB(30, 30, 30),
             AcrylicBorder = Color3.fromRGB(60, 60, 60),
@@ -5291,6 +5312,7 @@ local aa = {
         local aa, ab, ac, ad, ae = b(52)
         return {
             Name = "Light",
+            Image = "rbxassetid://18343183125",
             Accent = Color3.fromRGB(0, 103, 192),
             AcrylicMain = Color3.fromRGB(200, 200, 200),
             AcrylicBorder = Color3.fromRGB(120, 120, 120),
@@ -5331,6 +5353,7 @@ local aa = {
         local aa, ab, ac, ad, ae = b(53)
         return {
             Name = "Rose",
+            Image = "rbxassetid://18343260369",
             Accent = Color3.fromRGB(180, 55, 90),
             AcrylicMain = Color3.fromRGB(40, 40, 40),
             AcrylicBorder = Color3.fromRGB(130, 90, 110),
