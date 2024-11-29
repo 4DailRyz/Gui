@@ -1,3 +1,12 @@
+--[[
+    Edek Drawling Library
+
+    Author: edek1004
+    Youtube: https://www.youtube.com/@edek1004
+    Discord: https://discordapp.com/users/599152972206702593
+--]]
+
+
 local Utility = {}
 local Library = {
 	Version = "1.0",
