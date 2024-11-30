@@ -856,7 +856,7 @@ do
 		end
 
 		function t:LoadConfigs()
-			if Library.AutoSave.Value and Options.Save and readfile and isfile then
+			if Options.Save and readfile and isfile then
 				local fullPath = Options.Save.."/Configs.json"
 
 				if not isfile(fullPath) then
