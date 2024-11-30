@@ -868,9 +868,17 @@ do
 					return
 				end
 
+				local count = 0
 				for idx, option in next, decoded.objects do
 					if Library.Parser[option.type] then
-						Library.Parser[option.type].Load(option.idx, option)
+						count += 1
+						if count == 1 or count >= #decoded.objects then
+							Library.Parser[option.type].Load(option.idx, option)
+						else
+							task.spawn(function()
+								Library.Parser[option.type].Load(option.idx, option)
+							end)
+						end
 					end
 				end
 			end
@@ -4328,7 +4336,7 @@ do
 							s.Value = value
 							ToggleVisible(s.Value, true)
 							s.MultiValue[s.Value] = true
-						elseif type(value) == "number" and table.find(s.List, s.List[value]) then
+						elseif type(value) == "number" and s.List[value] then
 							if s.Value then
 								local real = type(s.Value) == "table" and s.Value.Name or s.Value
 								ToggleVisible(real, false)
