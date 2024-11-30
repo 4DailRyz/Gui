@@ -3838,11 +3838,9 @@ do
 							end
 						end
 					end
-					task.delay(1, function()
-						local textdesb = Descriptioninfo.Visible and Descriptioninfo.TextBounds.Y or 6
+					local textdesb = Descriptioninfo.Visible and Descriptioninfo.TextBounds.Y or 6
 
-						DropdownFrame.Parent.Size = UDim2.new(1, 0, 1, -(Titleinfo.TextBounds.Y + textdesb + 30))
-					end)
+					DropdownFrame.Parent.Size = UDim2.new(1, 0, 1, -(Titleinfo.TextBounds.Y + textdesb + 30))
 				end
 
 				Library.AddSignal(Titleinfo.Changed, function()
