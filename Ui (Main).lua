@@ -207,7 +207,7 @@ do
     end
 
 	function Utility.MakeTextButton(Configs)
-		local e, t = Utility.Create, {Title = Configs.Title or "", SubTiltle = Configs.Description or ""}
+		local e, t = Utility.Create, {Title = Configs.Title or "", SubTiltle = Configs.Description or "", Locked = false}
 
 		t.Frame = e("TextButton",
 			{
@@ -289,6 +289,35 @@ do
 			}
 		)
 
+		t.LockLabel = e("ImageLabel",
+			{
+				ZIndex = 2,
+				Parent = t.Frame,
+				Visible = false,
+				BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+				BackgroundTransparency = 1,
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.fromScale(0.5, 0.5),
+				Size = UDim2.fromScale(0, 0),
+				ScaleType = Enum.ScaleType.Fit,
+				Image = "rbxassetid://115887800941692"
+			},
+			{
+				e("UICorner", {CornerRadius = UDim.new(0, 4)})
+			}
+		)
+
+		t.LockButton = e("TextButton",
+			{
+				ZIndex = 2,
+				BackgroundTransparency = 1,
+				Size = UDim2.fromScale(1, 1),
+				Parent = t.Frame,
+				Visible = false,
+				Text = ""
+			}
+		)
+
 		function t:SetTitle(text)
 			Title.Text = tostring(text)
 
@@ -301,6 +330,24 @@ do
 			SubTitle.Visible = SubTitle.Text:len() > 0 and true or false
 
 			t.SubTiltle = tostring(SubTitle.Text)
+		end
+
+		function t.LockState()
+			return t.Locked
+		end
+
+		function t.Lock()
+			t.Locked = true
+			t.LockButton.Visible = true
+			t.LockLabel.Visible = true
+			Utility.Tween(t.LockLabel, {BackgroundTransparency = 0.75, Size = UDim2.fromScale(1, 1)}, 0.35, true)
+		end
+
+		function t.Unlock()
+			t.Locked = false
+			t.LockButton.Visible = false
+			Utility.Tween(t.LockLabel, {BackgroundTransparency = 1, Size = UDim2.fromScale(0, 0)}, 0.35, true)
+			t.LockLabel.Visible = false
 		end
 
 		t.TitleContent = Title
@@ -361,14 +408,8 @@ do
 			Library.GUI:Destroy()
 		end
 		for o,v in next, Library.Signals do
-			if typeof(v) == "RBXScriptConnection" then
-				task.spawn(function()
-					repeat
-						Library.Signals[o]:Disconnect()
-						task.wait()
-					until not Library.Signals[o].Connected
-				end)
-			end
+			v:Disconnect()
+			Library.Signals[o]:Disconnect()
 		end
 		for o,v in next, Library.CallbackUnloaded do
 			if type(v) ~= "function" then
@@ -392,6 +433,7 @@ do
 
 	Library.NotifyPage.Left = Create("Frame",
 		{
+			ZIndex = 3,
 			Parent = Library.GUI,
 			Size = UDim2.new(0.275, 0, 1, -20),
 			Position = UDim2.new(0, 6, 0, 10),
@@ -411,6 +453,7 @@ do
 
 	Library.NotifyPage.Right = Create("Frame",
 		{
+			ZIndex = 3,
 			Parent = Library.GUI,
 			AnchorPoint = Vector2.new(1, 0),
 			Size = UDim2.new(0.275, 0, 1, -20),
@@ -436,6 +479,7 @@ do
 
 		s.Title = e("TextLabel",
 			{
+				ZIndex = 3,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextSize = 13,
 				FontFace = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal),
@@ -449,6 +493,7 @@ do
 
 		s.Content = e("TextLabel",
 			{
+				ZIndex = 3,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextTransparency = 0.5,
 				TextSize = 12,
@@ -466,6 +511,7 @@ do
 
 		s.SubTitle = e("TextLabel",
 			{
+				ZIndex = 3,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextSize = 14,
 				FontFace = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal),
@@ -482,6 +528,7 @@ do
 
 		s.Button = e("TextButton",
 			{
+				ZIndex = 3,
 				AnchorPoint = Vector2.new(1, 0),
 				Text = "",
 				Size = UDim2.new(0, 34, 1, -8),
@@ -491,6 +538,7 @@ do
 			{
 				e("ImageLabel",
 					{
+						ZIndex = 3,
 						Name = "Icon",
 						ImageColor3 = Color3.fromRGB(220, 220, 220),
 						AnchorPoint = Vector2.new(0.5, 0.5),
@@ -505,6 +553,7 @@ do
 
 		s.Holder = e("Frame",
 			{
+				ZIndex = 3,
 				Parent = s.Parent,
 				AutomaticSize = Enum.AutomaticSize.Y,
 				Size = UDim2.new(0.1, 0, 0, 100),
@@ -525,6 +574,7 @@ do
 				),
 				e("ImageLabel",
 					{
+						ZIndex = 3,
 						ScaleType = Enum.ScaleType.Tile,
 						ImageTransparency = 0.92,
 						Image = "rbxassetid://9968344227",
@@ -536,6 +586,7 @@ do
 				),
 				e("ImageLabel",
 					{
+						ZIndex = 3,
 						ScaleType = Enum.ScaleType.Tile,
 						ImageTransparency = 0.98,
 						Image = "rbxassetid://9968344105",
@@ -547,6 +598,7 @@ do
 				),
 				e("ImageLabel",
 					{
+						ZIndex = 3,
 						ScaleType = Enum.ScaleType.Slice,
 						ImageTransparency = 0.7,
 						Image = "rbxassetid://8992230677",
@@ -559,6 +611,7 @@ do
 				),
 				e("Frame",
 					{
+						ZIndex = 3,
 						Size = UDim2.new(1, 0, 0, 42),
 						BackgroundTransparency = 1
 					},
@@ -566,6 +619,7 @@ do
 						s.Button,
 						e("Frame",
 							{
+								ZIndex = 3,
 								Size = UDim2.new(1, -80, 1, 0),
 								BackgroundTransparency = 1,
 								Position = UDim2.fromOffset(10, 0)
@@ -574,6 +628,7 @@ do
 						),
 						e("Frame",
 							{
+								ZIndex = 3,
 								BackgroundColor3 = Color3.fromRGB(45, 45, 45),
 								Size = UDim2.new(1, 0, 0, 1),
 								Position = UDim2.fromScale(0, 1),
@@ -582,6 +637,7 @@ do
 						),
 						e("TextLabel",
 							{
+								ZIndex = 3,
 								Text = "",
 								Size = UDim2.new(0, 34, 1, -8),
 								Position = UDim2.new(1, -4, 0, 4),
@@ -600,6 +656,7 @@ do
 								),
 								e("ImageLabel",
 									{
+										ZIndex = 3,
 										Image = Options.Logo or "rbxassetid://78484575433047",
 										AnchorPoint = Vector2.new(0.5, 0.5),
 										ImageColor3 = Color3.fromRGB(230, 230, 230),
@@ -614,6 +671,7 @@ do
 								),
 								e("ImageLabel",
 									{
+										ZIndex = 3,
 										ScaleType = Enum.ScaleType.Tile,
 										ImageTransparency = 0.92,
 										Image = "rbxassetid://9968344227",
@@ -625,6 +683,7 @@ do
 								),
 								e("ImageLabel",
 									{
+										ZIndex = 3,
 										ScaleType = Enum.ScaleType.Tile,
 										ImageTransparency = 0.98,
 										Image = "rbxassetid://9968344105",
@@ -636,6 +695,7 @@ do
 								),
 								e("ImageLabel",
 									{
+										ZIndex = 3,
 										ScaleType = Enum.ScaleType.Slice,
 										ImageTransparency = 0.7,
 										Image = "rbxassetid://8992230677",
@@ -652,6 +712,7 @@ do
 				),
 				e("Frame",
 					{
+						ZIndex = 3,
 						AutomaticSize = Enum.AutomaticSize.Y,
 						Size = UDim2.fromScale(1, 1),
 						Position = UDim2.fromOffset(0, 42),
@@ -1196,7 +1257,7 @@ do
 				Size = UDim2.new(0, 80, 0, 30),
 				Position = UDim2.new(1, -2, 0.5, 1),
 				BackgroundTransparency = 1,
-				ZIndex = 999
+				ZIndex = 5
 			},
 			{
 				e("UICorner", {CornerRadius = UDim.new(0, 6)}),
@@ -1208,6 +1269,7 @@ do
 				),
 				e("ImageLabel",
 					{
+						ZIndex = 3,
 						ImageColor3 = Color3.fromRGB(200, 200, 200),
 						AnchorPoint = Vector2.new(0, 0.5),
 						Image = "rbxassetid://113510079889014",
@@ -1218,6 +1280,7 @@ do
 				),
 				e("TextLabel",
 					{
+						ZIndex = 3,
 						TextXAlignment = Enum.TextXAlignment.Left,
 						TextSize = 13,
 						FontFace = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Heavy, Enum.FontStyle.Normal),
@@ -1236,6 +1299,7 @@ do
 
 		local Keytext = e("TextLabel",
 			{
+				ZIndex = 3,
 				AnchorPoint = Vector2.new(0.5, 0),
 				AutomaticSize = Enum.AutomaticSize.X,
 				TextSize = 13,
@@ -1256,6 +1320,7 @@ do
 
 		local Keybind = e("TextButton",
 			{
+				ZIndex = 3,
 				AnchorPoint = Vector2.new(1, 0.5),
 				Text = "",
 				AutomaticSize = Enum.AutomaticSize.X,
@@ -1357,7 +1422,7 @@ do
 				Image = "rbxassetid://78484575433047",
 				Size = UDim2.fromOffset((ex / 10) - 2, (ex / 10) - 5),
 				BackgroundTransparency = 1,
-				ZIndex = 100,
+				ZIndex = 5,
 				AnchorPoint = Vector2.new(0, 1),
 				Position = UDim2.new(0, 6, 1, -6)
 			},
@@ -1389,6 +1454,7 @@ do
 
 		local Youtube = e("TextButton",
 			{
+				ZIndex = 3,
 				Text = "",
 				AutomaticSize = Enum.AutomaticSize.Y,
 				Size = UDim2.new(1, 0, 0.45, 0),
@@ -1397,6 +1463,7 @@ do
 			{
 				e("ImageLabel",
 					{
+						ZIndex = 3,
 						Image = "rbxassetid://133428541702863",
 						AnchorPoint = Vector2.new(0, 0.5),
 						Position = UDim2.fromScale(0, 0.5),
@@ -1407,6 +1474,7 @@ do
 				),
 				e("TextLabel",
 					{
+						ZIndex = 3,
 						TextXAlignment = Enum.TextXAlignment.Left,
 						TextSize = 14,
 						FontFace = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal),
@@ -1426,6 +1494,7 @@ do
 
 		local Discord = e("TextButton",
 			{
+				ZIndex = 3,
 				Text = "",
 				AutomaticSize = Enum.AutomaticSize.Y,
 				Size = UDim2.new(1, 0, 0.45, 0),
@@ -1434,6 +1503,7 @@ do
 			{
 				e("ImageLabel",
 					{
+						ZIndex = 3,
 						Image = "rbxassetid://124174209182027",
 						AnchorPoint = Vector2.new(0, 0.5),
 						Position = UDim2.fromScale(0, 0.5),
@@ -1444,6 +1514,7 @@ do
 				),
 				e("TextLabel",
 					{
+						ZIndex = 3,
 						TextXAlignment = Enum.TextXAlignment.Left,
 						TextSize = 14,
 						FontFace = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal),
@@ -1463,6 +1534,7 @@ do
 
 		local ScrollVesrion = e("ScrollingFrame",
 			{
+				ZIndex = 3,
 				ScrollingDirection = Enum.ScrollingDirection.Y,
 				BackgroundTransparency = 1,
 				CanvasSize = UDim2.new(0, 0, 0, 0),
@@ -1492,6 +1564,7 @@ do
 
 		local ScrollChanlog = e("ScrollingFrame",
 			{
+				ZIndex = 3,
 				ScrollingDirection = Enum.ScrollingDirection.Y,
 				BackgroundTransparency = 1,
 				CanvasSize = UDim2.new(0, 0, 0, 0),
@@ -1521,6 +1594,7 @@ do
 
 		local InfoFrame = e("Frame",
 			{
+				ZIndex = 3,
 				BackgroundColor3 = Color3.fromRGB(45, 45, 45),
 				Size = UDim2.fromScale(1, 0.75),
 				BackgroundTransparency = 0.5
@@ -1536,6 +1610,7 @@ do
 				e("UICorner", {CornerRadius = UDim.new(0, 8)}),
 				e("Frame",
 					{
+						ZIndex = 3,
 						Size = UDim2.fromScale(0.2, 1),
 						BackgroundTransparency = 1
 					},
@@ -1553,6 +1628,7 @@ do
 				),
 				e("Frame",
 					{
+						ZIndex = 3,
 						Size = UDim2.new(0.8, -8, 1, 0),
 						BackgroundTransparency =1
 					},
@@ -1573,6 +1649,7 @@ do
 
 		local MenuFrame = e("TextButton",
 			{
+				ZIndex = 3,
 				Parent = Library.Window.Root,
 				Size = UDim2.fromScale(1, 1),
 				BackgroundTransparency = 1,
@@ -1582,6 +1659,7 @@ do
 			{
 				e("Frame",
 					{
+						ZIndex = 3,
 						Name = "Background",
 						Size = UDim2.fromScale(1, 1),
 						BackgroundColor3 = Color3.fromRGB(35, 35, 35),
@@ -1593,6 +1671,7 @@ do
 				),
 				e("Frame",
 					{
+						ZIndex = 3,
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						Position = UDim2.fromScale(0.5, 0.5),
 						Size = UDim2.fromScale(0.185, 0.185),
@@ -1623,6 +1702,7 @@ do
 						),
 						e("Frame",
 							{
+								ZIndex = 3,
 								BackgroundTransparency = 1,
 								Size = UDim2.fromScale(1, 0.075)
 							},
@@ -1630,6 +1710,7 @@ do
 
 								e("Frame",
 									{
+										ZIndex = 3,
 										Size = UDim2.fromScale(1, 1),
 										AutomaticSize = Enum.AutomaticSize.Y,
 										BackgroundTransparency = 1
@@ -1639,6 +1720,7 @@ do
 										Keybind,
 										e("TextLabel",
 											{
+												ZIndex = 3,
 												AnchorPoint = Vector2.new(0, 0.5),
 												BackgroundTransparency = 1,
 												Position = UDim2.new(0, 4, 0.5, 0),
@@ -1657,6 +1739,7 @@ do
 												),
 												e("ImageLabel",
 													{
+														ZIndex = 3,
 														AnchorPoint = Vector2.new(0.5, 0.5),
 														Image = Options.Logo or "rbxassetid://78484575433047",
 														Size = UDim2.new(1, -1, 1, -1),
@@ -1668,6 +1751,7 @@ do
 												),
 												e("ImageLabel",
 													{
+														ZIndex = 3,
 														ScaleType = Enum.ScaleType.Tile,
 														ImageTransparency = 0.92,
 														Image = "rbxassetid://9968344227",
@@ -1679,6 +1763,7 @@ do
 												),
 												e("ImageLabel",
 													{
+														ZIndex = 3,
 														ScaleType = Enum.ScaleType.Tile,
 														ImageTransparency = 0.98,
 														Image = "rbxassetid://9968344105",
@@ -1690,6 +1775,7 @@ do
 												),
 												e("ImageLabel",
 													{
+														ZIndex = 3,
 														ScaleType = Enum.ScaleType.Slice,
 														ImageTransparency = 0.7,
 														Image = "rbxassetid://8992230677",
@@ -1704,6 +1790,7 @@ do
 										),
 										e("TextLabel",
 											{
+												ZIndex = 3,
 												AnchorPoint = Vector2.new(0, 0.5),
 												BackgroundTransparency = 1,
 												Position = UDim2.new(0, 42, 0.5, 0),
@@ -1726,6 +1813,7 @@ do
 						InfoFrame,
 						e("Frame",
 							{
+								ZIndex = 3,
 								BackgroundColor3 = Color3.fromRGB(45, 45, 45),
 								Size = UDim2.fromScale(1, 0.15),
 								BackgroundTransparency = 0.5
@@ -1766,6 +1854,7 @@ do
 				sx += 1
 				local scrollinsert = e("ScrollingFrame",
 					{
+						ZIndex = 3,
 						Parent = InfoFrame,
 						ScrollingDirection = Enum.ScrollingDirection.Y,
 						BackgroundTransparency = 1,
@@ -1796,6 +1885,7 @@ do
 				Library.Menuinfo[v.Name] = {
 					Text = e("TextButton",
 						{
+							ZIndex = 3,
 							Parent = ScrollVesrion,
 							AutomaticSize = Enum.AutomaticSize.XY,
 							BackgroundTransparency = 1,
@@ -1821,6 +1911,7 @@ do
 					),
 					Container = e("Frame",
 						{
+							ZIndex = 3,
 							Visible = false,
 							Parent = InfoFrame,
 							Size = UDim2.new(0.8, -8, 1, 0),
@@ -1850,6 +1941,7 @@ do
 				for h = 1, #v.Content do
 					e("TextLabel",
 						{
+							ZIndex = 3,
 							Parent = scrollinsert,
 							AutomaticSize = Enum.AutomaticSize.Y,
 							BackgroundTransparency = 1,
@@ -1865,6 +1957,7 @@ do
 					)
 					e("TextLabel",
 						{
+							ZIndex = 3,
 							Parent = scrollinsert,
 							AutomaticSize = Enum.AutomaticSize.Y,
 							BackgroundTransparency = 1,
@@ -1939,6 +2032,7 @@ do
 			}
 			s.Holder = e("Frame",
 				{
+					ZIndex = 3,
 					Size = UDim2.new(1, -40, 1, -40),
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					Position = UDim2.fromScale(0.5, 0.5),
@@ -1958,6 +2052,7 @@ do
 			)
 			s.HolderFrame = e("Frame",
 				{
+					ZIndex = 3,
 					Size = UDim2.new(1, 0, 0, 70),
 					Position = UDim2.new(0, 0, 1, -70),
 					BackgroundColor3 = Color3.fromRGB(35, 35, 35)
@@ -1966,6 +2061,7 @@ do
 					s.Holder,
 					e("Frame",
 						{
+							ZIndex = 3,
 							Size = UDim2.new(1, -6, 0, 1),
 							Position = UDim2.new(0, 3, 0, 0),
 							BackgroundColor3 = Color3.fromRGB(82, 255, 255),
@@ -1976,17 +2072,18 @@ do
 			)
 			s.ContainerFrame = e("TextButton",
 				{
+					ZIndex = 3,
 					Parent = Library.Window.Root,
 					Visible = true,
 					Size = UDim2.fromScale(1, 1),
 					BackgroundTransparency = 1,
-					ZIndex = 1,
 					Text = "",
 					AutomaticSize = Enum.AutomaticSize.Y
 				},
 				{
 					e("Frame",
 						{
+							ZIndex = 3,
 							Name = "Background",
 							Size = UDim2.fromScale(1, 1),
 							BackgroundColor3 = Color3.fromRGB(35, 35, 35),
@@ -1998,6 +2095,7 @@ do
 					),
 					e("CanvasGroup",
 						{
+							ZIndex = 3,
 							AnchorPoint = Vector2.new(0.5, 0.5),
 							Position = UDim2.fromScale(0.5, 0.5),
 							Size = UDim2.fromOffset(20, 20),
@@ -2032,6 +2130,7 @@ do
 				)
 				e("Frame",
 					{
+						ZIndex = 3,
 						Parent = s.ContainerFrame.CanvasGroup,
 						AutomaticSize = Enum.AutomaticSize.Y,
 						Size = UDim2.fromScale(1, 0),
@@ -2054,6 +2153,7 @@ do
 						),
 						e("TextLabel",
 							{
+								ZIndex = 3,
 								Parent = s.ContainerFrame.CanvasGroup,
 								TextXAlignment = Enum.TextXAlignment.Left,
 								AutomaticSize = Enum.AutomaticSize.Y,
@@ -2069,6 +2169,7 @@ do
 						),
 						e("TextLabel",
 							{
+								ZIndex = 3,
 								Parent = s.ContainerFrame.CanvasGroup,
 								TextXAlignment = Enum.TextXAlignment.Left,
 								AutomaticSize = Enum.AutomaticSize.Y,
@@ -2100,6 +2201,7 @@ do
 					end
 				local C = e("TextButton",
 					{
+						ZIndex = 3,
 						Parent = s.Holder,
 						BackgroundColor3 = Color3.fromRGB(45, 45, 45),
 						Size = UDim2.new(0.5, -5, 0, 32),
@@ -2117,6 +2219,7 @@ do
 						),
 						e("TextLabel",
 							{
+								ZIndex = 3,
 								AutomaticSize = Enum.AutomaticSize.Y,
 								Size = UDim2.fromScale(1, 1),
 								BackgroundTransparency = 1,
@@ -2377,6 +2480,8 @@ do
 				l.currentPage = Page[h.Tab].Page[l.Page]
 				l.currentPage.count = l.currentPage.count and l.currentPage + 1 or 1
 
+				local Locked = false
+
 				local Frame = e("Frame",
 					{
 						Size = UDim2.new(1, 0, 0, 28),
@@ -2439,8 +2544,58 @@ do
 				end
 
 				Library.AddSignal(s.Frame.MouseButton1Click, function()
+					if Locked then
+						return
+					end
 					Library.SafeCallback(l.Callback)
 				end)
+
+				local LockLabel = e("ImageLabel",
+					{
+						ZIndex = 2,
+						Parent = s.Frame,
+						Visible = false,
+						BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+						BackgroundTransparency = 1,
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.fromScale(0.5, 0.5),
+						Size = UDim2.fromScale(0, 0),
+						ScaleType = Enum.ScaleType.Fit,
+						Image = "rbxassetid://115887800941692"
+					},
+					{
+						e("UICorner", {CornerRadius = UDim.new(0, 4)})
+					}
+				)
+
+				local LockButton = e("TextButton",
+					{
+						ZIndex = 2,
+						BackgroundTransparency = 1,
+						Size = UDim2.fromScale(1, 1),
+						Parent = s.Frame,
+						Visible = false,
+						Text = ""
+					}
+				)
+
+				function s:LockState()
+					return Locked
+				end
+
+				function s:Lock()
+					Locked = true
+					LockButton.Visible = true
+					LockLabel.Visible = true
+					Utility.Tween(LockLabel, {BackgroundTransparency = 0.75, Size = UDim2.fromScale(1, 1)}, 0.35, true)
+				end
+
+				function s:Unlock()
+					Locked = false
+					LockButton.Visible = false
+					Utility.Tween(LockLabel, {BackgroundTransparency = 1, Size = UDim2.fromScale(0, 0)}, 0.35, true)
+					LockLabel.Visible = false
+				end
 
 				return s
 			end
@@ -2456,6 +2611,8 @@ do
 
 				l.currentPage = Page[h.Tab].Page[l.Page]
 				l.currentPage.count = l.currentPage.count and l.currentPage + 1 or 1
+
+				local Locked = false
 
 				local Text = e("TextLabel",
 					{
@@ -2549,11 +2706,59 @@ do
 					     Text.Text = tostring(text)
 				end
 				function s:SetSubTitle(text)
-					s.SubTiltle = SubText
-					SubText.Text = tostring(text)
+					     s.SubTiltle = SubText
+					     SubText.Text = tostring(text)
 
-					SubText.Visible = s.SubTiltle and true or false
+					     SubText.Visible = s.SubTiltle.Text:len() > 0 and true or false
 		   		end
+
+				local LockLabel = e("ImageLabel",
+				    {
+					   ZIndex = 2,
+					   Parent = s.Frame,
+					   Visible = false,
+					   BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+					   BackgroundTransparency = 1,
+					   AnchorPoint = Vector2.new(0.5, 0.5),
+					   Position = UDim2.fromScale(0.5, 0.5),
+					   Size = UDim2.fromScale(0, 0),
+					   ScaleType = Enum.ScaleType.Fit,
+					   Image = "rbxassetid://115887800941692"
+				    },
+				    {
+					   e("UICorner", {CornerRadius = UDim.new(0, 4)})
+				    }
+			    )
+
+			    local LockButton = e("TextButton",
+				    {
+					   ZIndex = 2,
+					   BackgroundTransparency = 1,
+					   Size = UDim2.fromScale(1, 1),
+					   Parent = s.Frame,
+					   Visible = false,
+					   Text = ""
+				    }
+			    )
+
+				function s:LockState()
+					return Locked
+				end
+
+				function s:Lock()
+					Locked = true
+					LockButton.Visible = true
+					LockLabel.Visible = true
+					Utility.Tween(LockLabel, {BackgroundTransparency = 0.75, Size = UDim2.fromScale(1, 1)}, 0.35, true)
+				end
+
+				function s:Unlock()
+					Locked = false
+					LockButton.Visible = false
+					Utility.Tween(LockLabel, {BackgroundTransparency = 1, Size = UDim2.fromScale(0, 0)}, 0.35, true)
+					LockLabel.Visible = false
+				end
+
 				return s
 			end
 
@@ -2583,6 +2788,10 @@ do
 
 				d.TitleContent.Size = UDim2.new(1, -150, 0, 14)
 				d.SubTiltleContent.Size = UDim2.new(1, -150, 0, 14)
+
+				s.LockState = d.LockState
+				s.Lock = d.Lock
+				s.Unlock = d.Unlock
 
 				table.insert(Page[h.Tab].Data, {Container = d.Frame, Title = function()
 					return d.Title
@@ -2709,6 +2918,10 @@ do
 				end)
 
 				function s:SetValue(value)
+					if s:LockState() then
+						SliderInput.TextBox.Text = s.Value
+						return
+					end
 					if (not tonumber(value)) and value:len() > 0 then
 						value = s.Value
 					else
@@ -2734,10 +2947,6 @@ do
 					changedD = changed
 					changed(s.Value)
 				end
-
-				Library.AddSignal(SliderInput.TextBox.FocusLost, function()
-					s:SetValue(SliderInput.TextBox.Text)
-				end)
 
 				function s:SetTitle(text)
 					     d:SetTitle(text)
@@ -2776,6 +2985,10 @@ do
 
 				d.TitleContent.Size = UDim2.new(1, -150, 0, 14)
 				d.SubTiltleContent.Size = UDim2.new(1, -150, 0, 14)
+
+				s.LockState = d.LockState
+				s.Lock = d.Lock
+				s.Unlock = d.Unlock
 
 				table.insert(Page[h.Tab].Data, {Container = d.Frame, Title = function()
 					return d.Title
@@ -2830,6 +3043,10 @@ do
 				end)
 
 				function s:SetValue(value)
+					if s:LockState() then
+						Input.Text = s.Value
+						return
+					end
 					if s.Numeric then
 						if (not tonumber(value)) and value:len() > 0 then
 							value = s.Value
@@ -2891,6 +3108,10 @@ do
 
 				d.Frame.Parent = c.Page[l.Page].Frame
 
+				s.LockState = d.LockState
+				s.Lock = d.Lock
+				s.Unlock = d.Unlock
+
 				table.insert(Page[h.Tab].Data, {Container = d.Frame, Title = function()
 					return d.Title
 				end})
@@ -2929,10 +3150,16 @@ do
 				)
 
 				Library.AddSignal(d.Frame.MouseButton1Click, function()
+					if s:LockState() then
+						return
+					end
 					s:SetValue(not s.Value)
 				end)
 
 				function s:SetValue(value)
+					if s:LockState() then
+						return
+					end
 					value = not (not value)
 					s.Value = value
 
@@ -2978,6 +3205,7 @@ do
 					Type = "Dropdown"
 				}
 
+				local Locked = false
 				local changedD
 
 				if l.Multi and type(s.Value) ~= "table" then
@@ -3006,6 +3234,10 @@ do
 				table.insert(Page[h.Tab].Data, {Container = d.Frame, Title = function()
 					return d.Title
 				end})
+
+				function s:LockState()
+					return Locked
+				end
 
 				local Text = e("TextLabel",
 					{
@@ -3075,7 +3307,7 @@ do
 						Position = UDim2.new(1, -10, 0, 5),
 						BackgroundTransparency = 1,
 						AnchorPoint = Vector2.new(1, 0),
-						ZIndex = 999
+						ZIndex = 5
 					},
 					{
 						e("UICorner", {CornerRadius = UDim.new(0, 6)}),
@@ -3087,6 +3319,7 @@ do
 						),
 						e("ImageLabel",
 							{
+								ZIndex = 3,
 								ImageColor3 = Color3.fromRGB(200, 200, 200),
 								AnchorPoint = Vector2.new(0, 0.5),
 								Image = "rbxassetid://113510079889014",
@@ -3097,6 +3330,7 @@ do
 						),
 						e("TextLabel",
 							{
+								ZIndex = 3,
 								TextXAlignment = Enum.TextXAlignment.Left,
 								TextSize = 12,
 								FontFace = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Heavy, Enum.FontStyle.Normal),
@@ -3115,6 +3349,7 @@ do
 
 				local Titleinfo = e("TextLabel",
 					{
+						ZIndex = 3,
 						TextXAlignment = Enum.TextXAlignment.Left,
 						AutomaticSize = Enum.AutomaticSize.Y,
 						TextColor3 = Color3.fromRGB(200, 200, 200),
@@ -3130,6 +3365,7 @@ do
 
 				local Descriptioninfo = e("TextLabel",
 					{
+						ZIndex = 3,
 						TextXAlignment = Enum.TextXAlignment.Left,
 						AutomaticSize = Enum.AutomaticSize.Y,
 						TextColor3 = Color3.fromRGB(115, 115, 115),
@@ -3146,6 +3382,7 @@ do
 
 				local DropdownFrame = e("Frame",
 					{
+						ZIndex = 3,
 						AutomaticSize = Enum.AutomaticSize.Y,
 						BackgroundTransparency = 1,
 						Size = UDim2.new(1, -20, 0, 0),
@@ -3184,6 +3421,7 @@ do
 
 				local DropdownSearch = e("TextBox",
 					{
+						ZIndex = 3,
 						TextColor3 = Color3.fromRGB(200, 200, 200),
 						PlaceholderColor3 = Color3.fromRGB(100, 100, 100),
 						PlaceholderText = "Search ...",
@@ -3201,6 +3439,7 @@ do
 
 				e("Frame",
 					{
+						ZIndex = 3,
 						Parent = DropdownFrame,
 						BackgroundTransparency = 1,
 						Size = UDim2.new(1, -10, 0, 30)
@@ -3217,6 +3456,7 @@ do
 						),
 						e("ImageLabel",
 							{
+								ZIndex = 3,
 								AnchorPoint = Vector2.new(0.5, 0.5),
 								Position = UDim2.new(0, 16, 0.5, 0),
 								Size = UDim2.new(0, 16, 0, 16),
@@ -3229,6 +3469,7 @@ do
 
 				local MaxSelect = e("TextLabel",
 					{
+						ZIndex = 3,
 						TextXAlignment = Enum.TextXAlignment.Center,
 						FontFace = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal),
 						TextColor3 = Color3.fromRGB(200, 200, 200),
@@ -3266,16 +3507,17 @@ do
 					Value = {},
 					Container = e("TextButton",
 						{
+							ZIndex = 3,
 							Visible = false,
 							Parent = Library.Window.Root,
 							Size = UDim2.fromScale(1, 1),
 							BackgroundTransparency = 1,
-							ZIndex = 1,
 							Text = ""
 						},
 						{
 							e("Frame",
 								{
+									ZIndex = 3,
 									Name = "Background",
 									Size = UDim2.fromScale(1, 1),
 									BackgroundColor3 = Color3.fromRGB(35, 35, 35),
@@ -3287,6 +3529,7 @@ do
 							),
 							e("Frame",
 								{
+									ZIndex = 3,
 									AnchorPoint = Vector2.new(0.5, 0.5),
 									Position = UDim2.fromScale(0.5, 0.5),
 									Size = UDim2.fromScale(0.185, 0.185),
@@ -3314,6 +3557,7 @@ do
 									),
 									e("ScrollingFrame",
 										{
+											ZIndex = 3,
 											LayoutOrder = 2,
 											Size = UDim2.new(1, 0, 1, -50),
 											CanvasSize = UDim2.fromScale(0, 0),
@@ -3335,6 +3579,7 @@ do
 									),
 									e("Frame",
 										{
+											ZIndex = 3,
 											Size = UDim2.new(1, 0, 0, 0),
 											AutomaticSize = Enum.AutomaticSize.Y,
 											BackgroundTransparency = 1
@@ -3342,6 +3587,7 @@ do
 										{
 											e("Frame",
 												{
+													ZIndex = 3,
 													Position = UDim2.new(0, 3, 1, 8),
 													Size = UDim2.new(1, -6, 0, 1),
 													BackgroundColor3 = Color3.fromRGB(100, 100, 100),
@@ -3350,6 +3596,7 @@ do
 											),
 											e("Frame",
 												{
+													ZIndex = 3,
 													Size = UDim2.new(1, -10, 0, 0),
 													AutomaticSize = Enum.AutomaticSize.Y,
 													BackgroundTransparency = 1,
@@ -3360,6 +3607,7 @@ do
 													MaxSelect,
 													e("Frame",
 														{
+															ZIndex = 3,
 															Size = UDim2.new(1, -125, 1, 0),
 															AutomaticSize = Enum.AutomaticSize.Y,
 															BackgroundTransparency = 1
@@ -3403,6 +3651,9 @@ do
 				})
 
 				function s.Open()
+					if s:LockState() then
+						return
+					end
 					Library.Dropdown[n].Container.Visible = true
 					Utility.Tween(Library.Dropdown[n].Container.Frame, {Size = UDim2.new(0.95, 0, 0.95, 0)}, 0.5, true)
 				end
@@ -3473,6 +3724,21 @@ do
 				Library.AddSignal(Button.MouseButton1Click, s.Open)
 				Library.AddSignal(Return.MouseButton1Click, s.Close)
 
+				function s:Lock()
+					s:Close()
+					Locked = true
+					d.LockButton.Visible = true
+					d.LockLabel.Visible = true
+					Utility.Tween(d.LockLabel, {BackgroundTransparency = 0.75, Size = UDim2.fromScale(1, 1)}, 0.35, true)
+				end
+
+				function s:Unlock()
+					Locked = false
+					d.LockButton.Visible = false
+					Utility.Tween(d.LockLabel, {BackgroundTransparency = 1, Size = UDim2.fromScale(0, 0)}, 0.35, true)
+					d.LockLabel.Visible = false
+				end
+
 				local function ToggleVisible(name, value)
 					if not Library.Dropdown[n].List[name] then
 						return
@@ -3509,6 +3775,7 @@ do
 
 							Library.Dropdown[n].List[f].Toggle = e("Frame",
 								{
+									ZIndex = 3,
 									Parent = d.Frame,
 									BackgroundColor3 = Color3.fromRGB(82, 255 ,255),
 									AnchorPoint = Vector2.new(1, 0.5),
@@ -3527,6 +3794,7 @@ do
 									),
 									e("ImageLabel",
 										{
+											ZIndex = 3,
 											Size = UDim2.new(1, -10, 1, -10),
 											Position = UDim2.new(0, 5, 0, 5),
 											BackgroundTransparency = 1,
@@ -3542,6 +3810,7 @@ do
 							)
 							Library.Dropdown[n].List[f].Container = e("TextButton",
 								{
+									ZIndex = 3,
 									Parent = DropdownFrame,
 									Size = UDim2.new(1, -10, 0, 30),
 									AutomaticSize = Enum.AutomaticSize.Y,
@@ -3566,6 +3835,7 @@ do
 									),
 									e("TextLabel",
 										{
+											ZIndex = 3,
 											FontFace = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal),
 											Text = f,
 											TextColor3 = Color3.fromRGB(200, 200, 200),
@@ -3587,6 +3857,7 @@ do
 							if type(v) == "table" then
 								Library.Dropdown[n].List[f].SliderLine = e("Frame",
 									{
+										ZIndex = 3,
 										Parent = Library.Dropdown[n].List[f].Container,
 										BackgroundColor3 = Color3.fromRGB(200, 200, 200),
 										AnchorPoint = Vector2.new(1, 0.5),
@@ -3597,6 +3868,7 @@ do
 										e("UICorner", {CornerRadius = UDim.new(1, 0)}),
 										e("Frame",
 											{
+												ZIndex = 3,
 												Name = "Point",
 												BackgroundColor3 = Color3.fromRGB(82, 255, 255),
 												Size = UDim2.new(0, 0, 1, 0)
@@ -3607,6 +3879,7 @@ do
 										),
 										e("Frame",
 											{
+												ZIndex = 3,
 												Size = UDim2.new(1, -8, 1, 0),
 												Position = UDim2.new(0, 4, 0, 0),
 												BackgroundTransparency = 1
@@ -3614,6 +3887,7 @@ do
 											{
 												e("ImageLabel",
 													{
+														ZIndex = 3,
 														AnchorPoint = Vector2.new(0, 0.5),
 														ImageColor3 = Color3.fromRGB(82, 255, 255),
 														Size = UDim2.fromOffset(8, 8),
@@ -3624,6 +3898,7 @@ do
 												),
 												e("TextLabel",
 													{
+														ZIndex = 3,
 														AnchorPoint = Vector2.new(0, 0.5),
 														Position = UDim2.new(0, -4, 0.5, -10),
 														BackgroundTransparency = 1,
@@ -3643,6 +3918,7 @@ do
 								)
 								Library.Dropdown[n].List[f].SliderInput = e("Frame",
 									{
+										ZIndex = 3,
 										Parent = Library.Dropdown[n].List[f].Container,
 										AnchorPoint = Vector2.new(1, 0.5),
 										Size = UDim2.new(0, 20, 0, 20),
@@ -3658,6 +3934,7 @@ do
 										),
 										e("TextBox",
 											{
+												ZIndex = 3,
 												Text = v.Number,
 												TextColor3 = Color3.fromRGB(200, 200 ,200),
 												PlaceholderColor3 = Color3.fromRGB(100, 100, 100),
@@ -3677,6 +3954,10 @@ do
 								local W, K, D, T = Library.Dropdown[n].List[f].SliderLine, Library.Dropdown[n].List[f].SliderInput, false, s.MultiValue[f]
 
 								Library.Dropdown[n].List[f].SliderChanged = function(value)
+									if s:LockState() then
+										K.TextBox.Text = T.Number
+										return
+									end
 									if (not tonumber(value)) and value:len() > 0 then
 										value = T.Number
 									else
@@ -3738,7 +4019,7 @@ do
 							local y = Library.Dropdown[n].List
 							local Y = type(v) == "table" and Library.Dropdown[n].List[f].Container.TextLabel or Library.Dropdown[n].List[f].Container
 							Library.AddSignal(Y.InputBegan, function(input)
-								if input.UserInputType ~= Enum.UserInputType.MouseButton1 and input.UserInputType ~= Enum.UserInputType.Touch then
+								if (input.UserInputType ~= Enum.UserInputType.MouseButton1 and input.UserInputType ~= Enum.UserInputType.Touch) or s:LockState() then
 									return
 								end
 								if s.Multi then
@@ -3925,6 +4206,9 @@ do
 				end
 
 				function s:SetValue(value)
+					if s:LockState() then
+						return
+					end
 					if value and type(value) == "table" then
 						for o,v in next, value do
 							if type(o) == "string" and s.List[o] then
@@ -4114,6 +4398,10 @@ do
 				d.TitleContent.Size = UDim2.new(1, -150, 0, 14)
 				d.SubTiltleContent.Size = UDim2.new(1, -150, 0, 14)
 
+				s.LockState = d.LockState
+				s.Lock = d.Lock
+				s.Unlock = d.Unlock
+
 				table.insert(Page[h.Tab].Data, {Container = d.Frame, Title = function()
 					return d.Title
 				end})
@@ -4192,6 +4480,11 @@ do
 									cp == "MouseRight" and value.UserInputType == Enum.UserInputType.MouseButton2
 								)
 								then
+									if s:LockState() then
+										Text.Text = old.text
+										Text.TextColor3 = old.text == "None" and Color3.fromRGB(100, 100, 100) or Color3.fromRGB(200, 200, 200)
+										return
+									end
 									s.OnClick = false
 									Text.Text = cp
 									s.Value = cp
@@ -4209,6 +4502,9 @@ do
 					end
 				end)
 				Library.AddSignal(k.InputBegan, function(input)
+					if s:LockState() then
+						return
+					end
 					if not s.OnClick and not k:GetFocusedTextBox() then
 						if s.Mode == "Toggle" then
 							local ne = s.Value
@@ -4250,6 +4546,9 @@ do
 				end
 
 				function s:SetValue(value, mode)
+					if s:LockState() then
+						return
+					end
 					value = value or s.Value
 					mode = mode or s.Mode
 					Text.Text = value or "None"
@@ -4317,9 +4616,17 @@ do
 
 				}
 
+				local Locked = false
 				local changedD
 
+				function s:LockState()
+					return Locked
+				end
 				function s.SetHSVFromRGB(code)
+					if s:LockState() then
+						s.Value = s.Value
+						return
+					end
 					local C, D, E = Color3.toHSV(code)
 					s.DataValue.Pos1 = C
 					s.DataValue.Pos2 = D
@@ -4359,7 +4666,7 @@ do
 						Position = UDim2.new(1, -10, 0, 5),
 						BackgroundTransparency = 1,
 						AnchorPoint = Vector2.new(1, 0),
-						ZIndex = 999
+						ZIndex = 5
 					},
 					{
 						e("UICorner", {CornerRadius = UDim.new(0, 6)}),
@@ -4371,6 +4678,7 @@ do
 						),
 						e("ImageLabel",
 							{
+								ZIndex = 3,
 								ImageColor3 = Color3.fromRGB(200, 200, 200),
 								AnchorPoint = Vector2.new(0, 0.5),
 								Image = "rbxassetid://113510079889014",
@@ -4381,6 +4689,7 @@ do
 						),
 						e("TextLabel",
 							{
+								ZIndex = 3,
 								TextXAlignment = Enum.TextXAlignment.Left,
 								TextSize = 12,
 								FontFace = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Heavy, Enum.FontStyle.Normal),
@@ -4399,6 +4708,7 @@ do
 
 				local Titleinfo = e("TextLabel",
 					{
+						ZIndex = 3,
 						TextXAlignment = Enum.TextXAlignment.Left,
 						AutomaticSize = Enum.AutomaticSize.Y,
 						TextColor3 = Color3.fromRGB(200, 200, 200),
@@ -4414,6 +4724,7 @@ do
 
 				local Descriptioninfo = e("TextLabel",
 					{
+						ZIndex = 3,
 						TextXAlignment = Enum.TextXAlignment.Left,
 						AutomaticSize = Enum.AutomaticSize.Y,
 						TextColor3 = Color3.fromRGB(115, 115, 115),
@@ -4458,6 +4769,7 @@ do
 
 				local ColorPickerPoint = e("ImageLabel",
 					{
+						ZIndex = 3,
 						Size = UDim2.new(0, 28, 0, 28),
 						ScaleType = Enum.ScaleType.Fit,
 						AnchorPoint = Vector2.new(0.5, 0.5),
@@ -4468,6 +4780,7 @@ do
 
 				local ColorPickerFrame = e("ImageLabel",
 					{
+						ZIndex = 3,
 						Size = UDim2.new(1, -50, 1, -180),
 						Position = UDim2.fromOffset(25, 0),
 						Image = "rbxassetid://4155801252",
@@ -4479,6 +4792,7 @@ do
 
 				local ColorPickerView = e("ImageLabel",
 					{
+						ZIndex = 3,
 						AnchorPoint = Vector2.new(0, 1),
 						Position = UDim2.new(0, 25, 1, -90),
 						Size = UDim2.new(1, -50, 0, 50),
@@ -4492,6 +4806,7 @@ do
 						e("UICorner", {CornerRadius = UDim.new(0, 8)}),
 						e("Frame",
 							{
+								ZIndex = 3,
 								BackgroundColor3 = s.Value,
 								Size = UDim2.fromScale(1, 1)
 							},
@@ -4504,6 +4819,7 @@ do
 
 				local RedInput = e("TextBox",
 					{
+						ZIndex = 3,
 						Size = UDim2.fromScale(1, 1),
 						TextColor3 = Color3.fromRGB(115, 115, 115),
 						PlaceholderColor3 = Color3.fromRGB(100, 100, 100),
@@ -4518,6 +4834,7 @@ do
 
 				local GreenInput = e("TextBox",
 					{
+						ZIndex = 3,
 						Size = UDim2.fromScale(1, 1),
 						TextColor3 = Color3.fromRGB(115, 115, 115),
 						PlaceholderColor3 = Color3.fromRGB(100, 100, 100),
@@ -4532,6 +4849,7 @@ do
 
 				local BlueInput = e("TextBox",
 					{
+						ZIndex = 3,
 						Size = UDim2.fromScale(1, 1),
 						TextColor3 = Color3.fromRGB(115, 115, 115),
 						PlaceholderColor3 = Color3.fromRGB(100, 100, 100),
@@ -4546,6 +4864,7 @@ do
 
 				local PointSelect = e("ImageLabel",
 					{
+						ZIndex = 3,
 						Size = UDim2.fromOffset(14, 14),
 						Image = "rbxassetid://12266946128"
 					},
@@ -4556,6 +4875,7 @@ do
 
 				local ColorSelect = e("Frame",
 					{
+						ZIndex = 3,
 						AnchorPoint = Vector2.new(0, 1),
 						Position = UDim2.new(0, 25, 1, -150),
 						Size = UDim2.new(1, -50, 0, 25)
@@ -4565,6 +4885,7 @@ do
 						e("UIGradient", {Color = ColorSequence.new(s.DataValue.Code), Rotation = 90}),
 						e("Frame",
 							{
+								ZIndex = 3,
 								Position = UDim2.fromOffset(0, 5),
 								Size = UDim2.new(1, 0, 1, -10),
 								BackgroundTransparency = 1
@@ -4576,16 +4897,17 @@ do
 
 				local ContainerFrame = e("TextButton",
 					{
+						ZIndex = 3,
 						Parent = Library.Window.Root,
 						Visible = false,
 						Size = UDim2.fromScale(1, 1),
 						BackgroundTransparency = 1,
-						ZIndex = 1,
 						Text = ""
 					},
 					{
 						e("Frame",
 							{
+								ZIndex = 3,
 								Name = "Background",
 								Size = UDim2.fromScale(1, 1),
 								BackgroundColor3 = Color3.fromRGB(35, 35, 35),
@@ -4597,6 +4919,7 @@ do
 						),
 						e("Frame",
 							{
+								ZIndex = 3,
 								AnchorPoint = Vector2.new(0.5, 0.5),
 								Position = UDim2.fromScale(0.5, 0.5),
 								Size = UDim2.fromScale(0.185, 0.185),
@@ -4624,6 +4947,7 @@ do
 								),
 								e("Frame",
 									{
+										ZIndex = 3,
 										Size = UDim2.new(1, 0, 0, 0),
 										AutomaticSize = Enum.AutomaticSize.Y,
 										BackgroundTransparency = 1
@@ -4631,6 +4955,7 @@ do
 									{
 										e("Frame",
 											{
+												ZIndex = 3,
 												Position = UDim2.new(0, 3, 1, 8),
 												Size = UDim2.new(1, -6, 0, 1),
 												BackgroundColor3 = Color3.fromRGB(100, 100, 100),
@@ -4639,6 +4964,7 @@ do
 										),
 										e("Frame",
 											{
+												ZIndex = 3,
 												Size = UDim2.new(1, -10, 0, 0),
 												AutomaticSize = Enum.AutomaticSize.Y,
 												BackgroundTransparency = 1,
@@ -4648,6 +4974,7 @@ do
 												Return,
 												e("Frame",
 													{
+														ZIndex = 3,
 														LayoutOrder = -1,
 														Size = UDim2.new(1, -125, 1, 0),
 														AutomaticSize = Enum.AutomaticSize.Y,
@@ -4677,6 +5004,7 @@ do
 								),
 								e("Frame",
 									{
+										ZIndex = 3,
 										Size = UDim2.new(1, 0, 1, -45),
 										BackgroundTransparency = 1
 									},
@@ -4686,6 +5014,7 @@ do
 										ColorPickerFrame,
 										e("Frame",
 											{
+												ZIndex = 3,
 												AnchorPoint = Vector2.new(0, 1),
 												Position = UDim2.new(0, 25, 1, -30),
 												Size = UDim2.new(1, -50, 0, 50),
@@ -4703,6 +5032,7 @@ do
 												),
 												e("Frame",
 													{
+														ZIndex = 3,
 														Size = UDim2.new(0.33, -1, 1, 0),
 														BackgroundTransparency = 1
 													},
@@ -4720,6 +5050,7 @@ do
 												),
 												e("Frame",
 													{
+														ZIndex = 3,
 														Size = UDim2.new(0.33, -1, 1, 0),
 														BackgroundTransparency = 1
 													},
@@ -4737,6 +5068,7 @@ do
 												),
 												e("Frame",
 													{
+														ZIndex = 3,
 														Size = UDim2.new(0.33, -1, 1, 0),
 														BackgroundTransparency = 1
 													},
@@ -4767,6 +5099,9 @@ do
 				end
 
 				function s.UpdateColor()
+					if s:LockState() then
+						return
+					end
 					ColorPickerFrame.BackgroundColor3 = Color3.fromHSV(s.DataValue.Pos1, 1, 1)
 					PointSelect.Position = UDim2.new(s.DataValue.Pos1, 0, 0, 0)
 					ColorPickerPoint.Position = UDim2.new(s.DataValue.Pos2, 0, 1 - s.DataValue.Pos3, 0)
@@ -4817,6 +5152,10 @@ do
 				end)
 
 				Library.AddSignal(RedInput.FocusLost, function()
+					if s:LockState() then
+						RedInput.Text = s.DataValue.Last["1"]
+						return
+					end
 					local ae = J()
 					local af, ag = pcall(Color3.fromRGB, RedInput.Text, ae.G, ae.B)
 					if af and typeof(ag) == "Color3" then
@@ -4828,6 +5167,10 @@ do
 				end)
 
 				Library.AddSignal(GreenInput.FocusLost, function()
+					if s:LockState() then
+						GreenInput.Text = s.DataValue.Last["2"]
+						return
+					end
 					local ae = J()
 					local af, ag = pcall(Color3.fromRGB, ae.R, GreenInput.Text, ae.B)
 					if af and typeof(ag) == "Color3" then
@@ -4839,6 +5182,10 @@ do
 				end)
 
 				Library.AddSignal(BlueInput.FocusLost, function()
+					if s:LockState() then
+						BlueInput.Text = s.DataValue.Last["3"]
+						return
+					end
 					local ae = J()
 					local af, ag = pcall(Color3.fromRGB, ae.R, ae.G, BlueInput.Text)
 					if af and typeof(ag) == "Color3" then
@@ -4850,6 +5197,9 @@ do
 				end)
 
 				Library.AddSignal(ColorSelect.InputBegan, function(input)
+					if s:LockState() then
+						return
+					end
 					if
 						input.UserInputType == Enum.UserInputType.MouseButton1 or
 							input.UserInputType == Enum.UserInputType.Touch
@@ -4867,6 +5217,9 @@ do
 				end)
 
 				Library.AddSignal(ColorPickerFrame.InputBegan, function(input)
+					if s:LockState() then
+						return
+					end
 					if
 						input.UserInputType == Enum.UserInputType.MouseButton1 or
 							input.UserInputType == Enum.UserInputType.Touch
@@ -4887,6 +5240,9 @@ do
 				end)
 
 				function s.Open()
+					if s:LockState() then
+						return
+					end
 					ContainerFrame.Visible = true
 					Utility.Tween(ContainerFrame.Frame, {Size = UDim2.new(0.95, 0, 0.95, 0)}, 0.5, true)
 				end
@@ -4897,6 +5253,21 @@ do
 
 					Utility.Tween(ContainerFrame.Frame, {Size = UDim2.new(0.185, 0, 0.185, 0)}, 0.5, true)
 					ContainerFrame.Visible = false
+				end
+
+				function s:Lock()
+					s:Close()
+					Locked = true
+					d.LockButton.Visible = true
+					d.LockLabel.Visible = true
+					Utility.Tween(d.LockLabel, {BackgroundTransparency = 0.75, Size = UDim2.fromScale(1, 1)}, 0.35, true)
+				end
+
+				function s:Unlock()
+					Locked = false
+					d.LockButton.Visible = false
+					Utility.Tween(d.LockLabel, {BackgroundTransparency = 1, Size = UDim2.fromScale(0, 0)}, 0.35, true)
+					d.LockLabel.Visible = false
 				end
 
 				Library.AddSignal(Return.MouseButton1Click, s.Close)
