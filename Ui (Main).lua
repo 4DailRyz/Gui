@@ -3484,10 +3484,12 @@ do
 				end
 
 				local function BuildDropdownList(lk1)
+					local slow = 0
 					for o,v in next, lk1 or s.List do
 						local f = type(o) == "string" and o or v
 
 						if not Library.Dropdown[n].List[f] then
+							slow += 1
 							Library.Dropdown[n].List[f] = {}
 
 							if type(v) == "table" then
@@ -3830,6 +3832,10 @@ do
 
 								DropdownFrame.Parent.Size = UDim2.new(1, 0, 1, -(Titleinfo.TextBounds.Y + textdesb + 30))
 							end)
+							if slow >= 10 then
+								task.wait()
+								slow = 0
+							end
 						end
 					end
 					task.delay(1, function()
@@ -3862,16 +3868,20 @@ do
 					if s.Multi then
 						for o,v in next, s.List do
 							if type(o) == "string" and not table.find(concatlist, o) then
-								Library.Dropdown[n].List[o].Container:Destroy()
-								Library.Dropdown[n].List[o] = nil
+								if Library.Dropdown[n].List[o] then
+									Library.Dropdown[n].List[o].Container:Destroy()
+									Library.Dropdown[n].List[o] = nil
+								end
 
 								if s.Value[o] then
 									s.Value[o] = nil
 									s.MultiValue[o] = nil
 								end
 							elseif type(v) == "string" and not table.find(concatlist, v) then
-								Library.Dropdown[n].List[v].Container:Destroy()
-								Library.Dropdown[n].List[v] = nil
+								if Library.Dropdown[n].List[v] then
+									Library.Dropdown[n].List[v].Container:Destroy()
+									Library.Dropdown[n].List[v] = nil
+								end
 
 								if table.find(s.Value, v) then
 									table.remove(s.Value, table.find(s.Value, v))
@@ -3881,16 +3891,20 @@ do
 						end
 					else
 						for o,v in next, s.List do
-							if type(o) == "string" and not table.find(concatlist, o) and Library.Dropdown[n].List[o] then
-								Library.Dropdown[n].List[o].Container:Destroy()
-								Library.Dropdown[n].List[o] = nil
+							if type(o) == "string" and not table.find(concatlist, o) then
+								if Library.Dropdown[n].List[o] then
+									Library.Dropdown[n].List[o].Container:Destroy()
+									Library.Dropdown[n].List[o] = nil
+								end
 
 								if type(s.Value) == "table" and s.Value.Name == o then
 									s.Value = nil
 								end
-							elseif type(v) == "string" and not table.find(concatlist, v) and Library.Dropdown[n].List[v] then
-								Library.Dropdown[n].List[v].Container:Destroy()
-								Library.Dropdown[n].List[v] = nil
+							elseif type(v) == "string" and not table.find(concatlist, v) then
+								if Library.Dropdown[n].List[v] then
+									Library.Dropdown[n].List[v].Container:Destroy()
+									Library.Dropdown[n].List[v] = nil
+								end
 
 								if type(s.Value) == "string" and s.Value == v then
 									s.Value = nil
