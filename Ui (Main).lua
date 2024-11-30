@@ -6,7 +6,6 @@
     Discord: https://discordapp.com/users/599152972206702593
 --]]
 
-
 local Utility = {}
 local Library = {
 	Version = "1.0",
@@ -3882,14 +3881,14 @@ do
 						end
 					else
 						for o,v in next, s.List do
-							if type(o) == "string" and not table.find(concatlist, o) then
+							if type(o) == "string" and not table.find(concatlist, o) and Library.Dropdown[n].List[o] then
 								Library.Dropdown[n].List[o].Container:Destroy()
 								Library.Dropdown[n].List[o] = nil
 
 								if type(s.Value) == "table" and s.Value.Name == o then
 									s.Value = nil
 								end
-							elseif type(v) == "string" and not table.find(concatlist, v) then
+							elseif type(v) == "string" and not table.find(concatlist, v) and Library.Dropdown[n].List[v] then
 								Library.Dropdown[n].List[v].Container:Destroy()
 								Library.Dropdown[n].List[v] = nil
 
