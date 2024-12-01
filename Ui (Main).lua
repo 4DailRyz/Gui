@@ -871,17 +871,11 @@ do
 					return
 				end
 
-				local count = 0
 				for idx, option in next, decoded.objects do
 					if Library.Parser[option.type] then
-						count += 1
-						if count == 1 or count >= #decoded.objects then
+						task.spawn(function()
 							Library.Parser[option.type].Load(option.idx, option)
-						else
-							task.spawn(function()
-								Library.Parser[option.type].Load(option.idx, option)
-							end)
-						end
+						end)
 					end
 				end
 			end
