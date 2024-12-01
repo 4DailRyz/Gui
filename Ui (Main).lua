@@ -66,6 +66,9 @@ Library.Parser = {
 					end
 				end
 			end
+			warn(
+				table.concat(encode, ", ")
+			)
 			Library.Options[idx]:SetValue(decond > 0 and encode or object.value)
 		end
 	},
@@ -819,9 +822,6 @@ do
 		end
 
 		function t:SaveConfigs()
-			if Library.LoadingConfigs then
-				return
-			end
 			if Library.AutoSave.Value and Options.Save and writefile and isfolder and makefolder then
 				local fullPath, DncodePath = Options.Save.."/Configs.json", Options.Save
 
@@ -874,17 +874,11 @@ do
 					return
 				end
 
-				local count = 0
-				Library.LoadingConfigs = true
 				for idx, option in next, decoded.objects do
-					count += 1
 					if Library.Parser[option.type] then
 						task.spawn(function()
 							Library.Parser[option.type].Load(option.idx, option)
 						end)
-					end
-					if count >= #decoded.objects then
-						Library.LoadingConfigs = false
 					end
 				end
 			end
