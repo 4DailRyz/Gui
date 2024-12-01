@@ -3954,7 +3954,7 @@ do
 								)
 
 								Library.Dropdown[n].List[f].Container.TextLabel.Size = UDim2.new(1, -155, 1, 0)
-								local W, K, D, T = Library.Dropdown[n].List[f].SliderLine, Library.Dropdown[n].List[f].SliderInput, false, s.MultiValue[f]
+								local W, K, D, T = Library.Dropdown[n].List[f].SliderLine, Library.Dropdown[n].List[f].SliderInput, false, s.List[f]
 
 								Library.Dropdown[n].List[f].SliderChanged = function(value)
 									if s:LockState() then
