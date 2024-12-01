@@ -3773,10 +3773,8 @@ do
 									Name = f,
 								}
 								v = s.List[f]
-								s.MultiValue[f] = s.List[f]
-							else
-								s.MultiValue[f] = false
 							end
+							s.MultiValue[f] = false
 
 							Library.Dropdown[n].List[f].Toggle = e("Frame",
 								{
@@ -4039,11 +4037,7 @@ do
 											else
 												table.remove(s.Value, table.find(s.Value, f))
 											end
-											if type(v) == "table" then
-												s.MultiValue[f].Value = false
-											else
-												s.MultiValue[f] = false
-											end
+											s.MultiValue[f] = false
 											s.UpdateTextDisplay()
 										end
 										return
@@ -4055,24 +4049,17 @@ do
 										else
 											table.remove(s.Value, table.find(s.Value, f))
 										end
-										if type(v) == "table" then
-											s.MultiValue[f].Value = false
-										else
-											s.MultiValue[f] = false
-										end
+										s.MultiValue[f] = false
 									else
 										if type(v) == "string" and not table.find(s.Value, f) then
 											ToggleVisible(f, true)
 											table.insert(s.Value, f)
-
-											s.MultiValue[f] = true
 										end
 										if type(o) == "string" and not s.Value[f] then
 											ToggleVisible(f, true)
 											s.Value[f] = v
-
-											s.MultiValue[f].Value = true
 										end
+										s.MultiValue[f] = true
 									end
 								else
 									local kj = type(s.Value) == "table" and s.Value.Name or s.Value
@@ -4088,11 +4075,7 @@ do
 										end
 										ToggleVisible(R, false)
 										s.Value = nil
-										if type(s.MultiValue[f]) == "table" then
-											s.MultiValue[f].Value = false
-										else
-											s.MultiValue[f] = false
-										end
+										s.MultiValue[f] = false
 									end
 									s.Value = (not N) and f or nil
 									s.Value = ((s.Value and type(v) == "table") and v or nil) or s.Value
@@ -4101,11 +4084,7 @@ do
 
 									if R and y[R] then
 										ToggleVisible(R, true)
-										if type(s.MultiValue[f]) == "table" then
-											s.MultiValue[f].Value = true
-										else
-											s.MultiValue[f] = true
-										end
+										s.MultiValue[f] = true
 									end
 								end
 								s.UpdateTextDisplay()
@@ -4223,7 +4202,7 @@ do
 											if type(ee) == "string" and not value[ee] then
 												s.Value[ee] = nil
 												ToggleVisible(ee, false)
-												s.MultiValue[ee].Value = false
+												s.MultiValue[ee] = false
 											end
 										end
 									end
@@ -4243,17 +4222,17 @@ do
 
 									if s.Value[o].Value then
 										ToggleVisible(o, true)
-										s.MultiValue[o].Value = true
+										s.MultiValue[o] = true
 									else
 										s.Value[o] = nil
 										ToggleVisible(o, false)
-										s.MultiValue[o].Value = false
+										s.MultiValue[o] = false
 									end
 								else
 									if s.Value then
 										if type(s.Value) == "table" then
 											ToggleVisible(s.Value.Name, false)
-											s.MultiValue[s.Value.Name].Value = false
+											s.MultiValue[s.Value.Name] = false
 										else
 											ToggleVisible(s.Value, false)
 											s.MultiValue[s.Value] = false
@@ -4275,11 +4254,11 @@ do
 
 									if s.Value.Value then
 										ToggleVisible(o, true)
-										s.MultiValue[o].Value = true
+										s.MultiValue[o] = true
 									else
 										s.Value = nil
 										ToggleVisible(o, false)
-										s.MultiValue[o].Value = false
+										s.MultiValue[o] = false
 									end
 								end
 							elseif type(v) == "string" and table.find(s.List, v) and not table.find(s.Value, v) then
