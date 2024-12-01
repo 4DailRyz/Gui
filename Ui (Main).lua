@@ -66,10 +66,11 @@ Library.Parser = {
 					end
 				end
 			end
-			warn(
-				table.concat(encode, ", ")
-			)
-			Library.Options[idx]:SetValue(decond > 0 and encode or object.value)
+			if decond > 0 then
+				warn("more than 0", table.concat(encode, ", "))
+				object.value = encode
+			end
+			Library.Options[idx]:SetValue(object.value)
 		end
 	},
 	Toggle = {
