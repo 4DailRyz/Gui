@@ -796,6 +796,8 @@ do
 			Library.Window.Root.Visible = false
 		end
 
+		Options.Ignore = Options.Ignore or {}
+
 		function t:LoadMinimize()
 			if Options.Hide then
 				local tIck = tick() - Library.Start
@@ -844,6 +846,7 @@ do
 				for idx, option in next, Library.Options do
 					if not Library.Parser[option.Type] then continue end
 					if Library.Ignore[idx] then continue end
+					if Options.Ignore[idx] then continue end
 
 					table.insert(data.objects, Library.Parser[option.Type].Save(idx, option))
 				end
