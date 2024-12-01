@@ -4220,7 +4220,7 @@ do
 								if s.Multi then
 									if s.Value then
 										for ee,vv in next, s.Value do
-											if type(ee) == "string" and ee ~= o then
+											if type(ee) == "string" and not value[ee] then
 												s.Value[ee] = nil
 												ToggleVisible(ee, false)
 												s.MultiValue[ee].Value = false
