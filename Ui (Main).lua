@@ -66,11 +66,7 @@ Library.Parser = {
 					end
 				end
 			end
-			if decond > 0 then
-				warn("more than 0", table.concat(encode, ", "))
-				object.value = encode
-			end
-			Library.Options[idx]:SetValue(object.value)
+			Library.Options[idx]:SetValue(decond > 0 and encode or object.value)
 		end
 	},
 	Toggle = {
@@ -4289,7 +4285,7 @@ do
 							elseif type(v) == "string" and table.find(s.List, v) and not table.find(s.Value, v) then
 								if s.Value then
 									for ee,vv in next, s.Value do
-										if type(vv) == "string" and vv ~= v then
+										if type(vv) == "string" and not table.find(value, vv) then
 											table.remove(s.Value, table.find(s.Value, vv))
 											ToggleVisible(vv, false)
 											s.MultiValue[vv] = false
