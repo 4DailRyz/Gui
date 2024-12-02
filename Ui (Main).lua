@@ -5313,7 +5313,7 @@ do
 				local CurrentPage = Page[h.Tab].Page[Configs.Page]
 					  CurrentPage.count = (CurrentPage.count and CurrentPage.count + 1) or 1
 
-				n.SectionFrame = e("Frame",
+				s.SectionFrame = e("Frame",
 					{
 						Size = UDim2.new(1, 0, 1, -24),
 						Position = UDim2.fromOffset(0, 24),
@@ -5373,7 +5373,7 @@ do
 						BackgroundTransparency = 1
 					},
 					{
-						n.SectionFrame,
+						s.SectionFrame,
 						n.SectionContent
 					}
 				)
@@ -5386,56 +5386,56 @@ do
 				function s:AddButton(v)
 					local d = h:AddButton(v)
 
-					d.Frame.Parent = n.SectionFrame
+					d.Frame.Parent = s.SectionFrame
 					return d
 				end
 
 				function s:AddParagraph(v)
 					local d = h:AddParagraph(v)
 
-					d.Frame.Parent = n.SectionFrame
+					d.Frame.Parent = s.SectionFrame
 					return d
 				end
 
 				function s:AddTextBox(v, o)
 					local d = h:AddTextBox(v, o)
 
-					d.Frame.Parent = n.SectionFrame
+					d.Frame.Parent = s.SectionFrame
 					return d
 				end
 
 				function s:AddSlider(v, o)
 					local d = h:AddSlider(v, o)
 
-					d.Frame.Parent = n.SectionFrame
+					d.Frame.Parent = s.SectionFrame
 					return d
 				end
 
 				function s:AddToggle(v, o)
 					local d = h:AddToggle(v, o)
 
-					d.Frame.Parent = n.SectionFrame
+					d.Frame.Parent = s.SectionFrame
 					return d
 				end
 
 				function s:AddDropdown(v, o)
 					local d = h:AddDropdown(v, o)
 
-					d.Frame.Parent = n.SectionFrame
+					d.Frame.Parent = s.SectionFrame
 					return d
 				end
 
 				function s:AddKeybind(v, o)
 					local d = h:AddKeybind(v, o)
 
-					d.Frame.Parent = n.SectionFrame
+					d.Frame.Parent = s.SectionFrame
 					return d
 				end
 
 				function s:AddColorPicker(v, o)
 					local d = h:AddColorPicker(v, o)
 
-					d.Frame.Parent = n.SectionFrame
+					d.Frame.Parent = s.SectionFrame
 					return d
 				end
 
