@@ -268,6 +268,10 @@ do
 			}
 		)
 
+		if Configs.DisableDescription then
+			SubTitle.Visible = false
+		end
+
 		e("Frame",
 			{
 				Parent = t.Frame,
@@ -327,7 +331,9 @@ do
 		function t:SetSubTitle(text)
 			SubTitle.Text = tostring(text)
 
-			SubTitle.Visible = SubTitle.Text:len() > 0 and true or false
+			if not Configs.DisableDescription then
+				SubTitle.Visible = SubTitle.Text:len() > 0 and true or false
+			end
 
 			t.SubTiltle = tostring(SubTitle.Text)
 		end
